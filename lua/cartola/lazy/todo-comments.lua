@@ -6,6 +6,6 @@ return {
 	},
 	config = function ()
 		local todo = require("todo-comments").setup({})
-		vim.keymap.set("n", "tc", ":TodoTrouble<cr>")
+		vim.keymap.set("n", "<leader>tc", ":TodoTrouble<cr>")
 	end,
 }

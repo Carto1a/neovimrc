@@ -19,7 +19,7 @@ autocmd('LspAttach', {
 		-- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 		vim.keymap.set('n', '<leader>gr', require('telescope.builtin').lsp_references, opts)
 		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-		vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, opts)
+		vim.keymap.set('n', '<leader>k', vim.lsp.buf.signature_help, opts)
 		vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
 		vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
 		vim.keymap.set('n', '<leader>ws', function() vim.lsp.buf.workspace_symbol() end, opts)
