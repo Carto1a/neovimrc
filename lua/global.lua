@@ -5,4 +5,4 @@ local HOMEPATHS = {
 }
 
 vim.g.HOME = HOMEPATHS[OS]
-
+vim.g.NVIM_DATA = vim.fn.stdpath('data');
