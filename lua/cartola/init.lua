@@ -1,6 +1,7 @@
 require("cartola.set")
 require("cartola.auto")
 require("cartola.remap")
+require("cartola.netrw")
 --require("cartola.statusline")
 require("cartola.lazy_init")
 
