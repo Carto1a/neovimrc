@@ -38,3 +38,10 @@ autocmd('LspAttach', {
 		vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
 	end,
 })
+
+autocmd('TextYankPost', {
+    group = autogroup('UserTextYankPost', {}),
+    callback = function(_)
+        vim.highlight.on_yank({ timeout = 150 })
+    end,
+})

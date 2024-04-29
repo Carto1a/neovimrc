@@ -13,6 +13,7 @@ vim.opt.wildmenu = true
 vim.opt.foldmethod = "manual"
 vim.opt.foldlevelstart = 99
 vim.opt.breakindent = true
+vim.opt.ignorecase = true
 --vim.opt.autochdir = true
 
 vim.opt.swapfile = false
