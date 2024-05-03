@@ -29,8 +29,8 @@ map('i', '[<cr>', '[<cr>]<esc>O', opts)
 map('i', '{<cr>', '{<cr><backspace>}<esc>O', opts)
 
 -- Limpar destaque ao pressionar Enter no modo normal
-map('n', '<CR>', ':noh<CR><CR>', opts)
-map('n', '<esc>', '<esc>^[ <esc>^[:noh<CR>', opts)
+map('n', '<esc>', ':noh<cr><esc>', opts)
+-- map('n', '<esc>', '<esc>^[ <esc>^[:noh<CR>', opts)
 
 -- Mapeamentos de navegação entre janelas
 map('n', '<C-k>', '<C-w>k', opts)
