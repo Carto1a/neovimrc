@@ -20,6 +20,19 @@ return {
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
         local lspconfig = require("lspconfig")
+
+        vim.diagnostic.config({
+            virtual_text = true,
+            signs = true,
+            underline = true,
+            update_in_insert = false,
+            severity_sort = false,
+        })
+
+        -- inlay_hints = {
+        --     enabled = true,
+        -- }
+
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
@@ -76,12 +89,12 @@ return {
                 end),
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'luasnip' }, -- For luasnip users.
                 { name = 'path' },
+                { name = 'luasnip' }, -- For luasnip users.
                 { name = 'nvim_lsp_signature_help' },
             }, {
                 { name = 'buffer' },

@@ -45,3 +45,15 @@ autocmd('TextYankPost', {
         vim.highlight.on_yank({ timeout = 150 })
     end,
 })
+
+autocmd('FileType', {
+    group = autogroup('wrap_spell', {}),
+    pattern = { 'markdown', 'text', 'gitcommit' },
+    callback = function()
+        vim.opt.textwidth = 80
+        vim.opt.spell = true
+        vim.opt.spelllang = 'en_us,pt_br'
+        vim.opt.wrap = true
+    end,
+})
+

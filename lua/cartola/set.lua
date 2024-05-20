@@ -16,6 +16,10 @@ vim.opt.breakindent = true
 vim.opt.ignorecase = true
 --vim.opt.autochdir = true
 
+function teste()
+
+end
+
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv(vim.g.HOME) .. "/.vim/undodir"
@@ -26,15 +30,17 @@ vim.opt.updatetime = 50
 vim.opt.cursorline = true
 vim.opt.list = true
 vim.opt.listchars = {
-	trail = "~",
-	eol = "·",
-	-- tab = '│ ',
-	tab = "  ",
-	extends = ">",
-	precedes = "<",
-	multispace = " ",
-	lead = " ",
+    trail = "~",
+    eol = "·",
+    -- tab = '│ ',
+    tab = "  ",
+    extends = ">",
+    precedes = "<",
+    multispace = " ",
+    lead = " ",
 }
+
+vim.opt.foldmethod = "syntax"
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
@@ -42,5 +48,12 @@ vim.opt.colorcolumn = "80"
 vim.opt.mouse = "a"
 vim.opt.conceallevel = 1
 vim.opt.termguicolors = true
+
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = "manual"
+vim.opt.foldtext = ""
+if vim.fn.has("nvim-0.10") == 1 then
+    vim.opt.smoothscroll = true
+end
 
 --let g:netrw_banner=0
