@@ -56,4 +56,10 @@ map('n', '<A-k>', ':m .-2<cr>==', opts)
 map('x', '<A-j>', ':m \'>+1<cr>gv=gv', opts)
 map('x', '<A-k>', ':m -2<cr>gv=gv', opts)
 
+-- System clipboard
+map('n', '<leader>y', '"+y', opts)
+map('v', '<leader>y', '"+y', opts)
+map('n', '<leader>p', '"+p', opts)
+map('v', '<leader>p', '"+p', opts)
+
 
