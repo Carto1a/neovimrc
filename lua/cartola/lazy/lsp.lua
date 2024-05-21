@@ -24,14 +24,10 @@ return {
         vim.diagnostic.config({
             virtual_text = true,
             signs = true,
-            underline = true,
+            underline = false,
             update_in_insert = false,
             severity_sort = false,
         })
-
-        -- inlay_hints = {
-        --     enabled = true,
-        -- }
 
         require("mason-lspconfig").setup({
             ensure_installed = {
@@ -58,6 +54,9 @@ return {
                             Lua = {
                                 diagnostics = {
                                     globals = { "vim" }
+                                },
+                                hint = {
+                                    enable = true
                                 }
                             }
                         }
