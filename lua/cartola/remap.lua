@@ -6,15 +6,15 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("x", "<C-c>", ':%y+<cr>', {noremap=true, silent=true})
 
 -- Mapeamentos em modo de inserção
-map('i', "''<tab>", "''<left>", opts)
+map('i', "'<tab>", "''<left>", opts)
 map('i', '`<tab>', "``<left>", opts)
-map('i', '""<tab>', '""<left>', opts)
-map('i', '()<tab>', '()<left>', opts)
-map('i', '[]<tab>', '[]<left>', opts)
-map('i', '{}<tab>', '{}<left>', opts)
+map('i', '"<tab>', '""<left>', opts)
+map('i', '(<tab>', '()<left>', opts)
+map('i', '[<tab>', '[]<left>', opts)
+map('i', '{<tab>', '{}<left>', opts)
 
-map('i', "',<tab>", "',<left><left>", opts)
-map('i', "`,<tab>", "`,<left><left>", opts)
+map('i', "',<tab>", "'',<left><left>", opts)
+map('i', "`,<tab>", "``,<left><left>", opts)
 map('i', "\",<tab>", "\"\",<left><left>", opts)
 map('i', '(,<tab>', '(),<left><left>', opts)
 map('i', '[,<tab>', '[],<left><left>', opts)
@@ -24,11 +24,11 @@ map('i', "\"<cr>", "\"<CR>\"<esc>O", opts)
 map('i', "'<cr>", "'<cr>'<esc>O", opts)
 map('i', '`<cr>', '`<cr>`<esc>O', opts)
 map('i', '"<cr>', '"<cr>"<esc>O', opts)
-map('i', '(<cr>', '()<cr>)<esc>O', opts)
+map('i', '(<cr>', '(<cr>)<esc>O', opts)
 map('i', '[<cr>', '[<cr>]<esc>O', opts)
-map('i', '{<cr>', '{<cr><backspace>}<esc>O', opts)
+map('i', '{<cr>', '{<cr>}<esc>O', opts)
 
--- Limpar destaque ao pressionar Enter no modo normal
+-- Limpar destaque ao pressionar Esc no modo normal
 map('n', '<esc>', ':noh<cr><esc>', opts)
 -- map('n', '<esc>', '<esc>^[ <esc>^[:noh<CR>', opts)
 
@@ -39,11 +39,12 @@ map('n', '<C-l>', '<C-w>l', opts)
 map('n', '<C-j>', '<C-w>j', opts)
 
 -- Mapeamentos de navegação rápida
---map('i', 'jj', '<esc>', opts)
 map('i', '<C-h>', '<Left>', opts)
 map('i', '<C-j>', '<Down>', opts)
 map('i', '<C-k>', '<Up>', opts)
 map('i', '<C-l>', '<Right>', opts)
+
+-- NOTE: não funciona no windows terminal
 map('i', '<C-4>', '<End>', opts)
 map('i', '<C-0>', '<Home>', opts)
 map('i', '<C-_>', '<esc><S-_>i', opts)
