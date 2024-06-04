@@ -13,6 +13,11 @@ map('i', '(<tab>', '()<left>', opts)
 map('i', '[<tab>', '[]<left>', opts)
 map('i', '{<tab>', '{}<left>', opts)
 
+-- TODO: procurar ou escrever um plugin para isso
+map('i', "<<tab>", "<><left>", opts)
+map('i', "<><tab>", "<></><left><left><left>", opts)
+map('i', "</<tab>", "</><left><left>", opts)
+
 map('i', "',<tab>", "'',<left><left>", opts)
 map('i', "`,<tab>", "``,<left><left>", opts)
 map('i', "\",<tab>", "\"\",<left><left>", opts)
@@ -20,13 +25,17 @@ map('i', '(,<tab>', '(),<left><left>', opts)
 map('i', '[,<tab>', '[],<left><left>', opts)
 map('i', '{,<tab>', "{}<left><left>", opts)
 
-map('i', "\"<cr>", "\"<CR>\"<esc>O", opts)
-map('i', "'<cr>", "'<cr>'<esc>O", opts)
-map('i', '`<cr>', '`<cr>`<esc>O', opts)
-map('i', '"<cr>', '"<cr>"<esc>O', opts)
-map('i', '(<cr>', '(<cr>)<esc>O', opts)
-map('i', '[<cr>', '[<cr>]<esc>O', opts)
+map('i', "\"<cr>", "\"<CR>\"<esc>O<tab>", opts)
+map('i', "'<cr>", "'<cr>'<esc>O<tab>", opts)
+map('i', '`<cr>', '`<cr>`<esc>O<tab>', opts)
+map('i', '"<cr>', '"<cr>"<esc>O<tab>', opts)
+map('i', '(<cr>', '(<cr>)<esc>O<tab>', opts)
+map('i', '[<cr>', '[<cr>]<esc>O<tab>', opts)
 map('i', '{<cr>', '{<cr>}<esc>O', opts)
+
+-- TODO: procurar ou escrever um plugin para isso
+map('i', '</<cr>', '<<cr>/><esc>O<tab>', opts)
+map('i', '<<cr>', '<><cr></><esc>O<tab>', opts)
 
 -- Limpar destaque ao pressionar Esc no modo normal
 map('n', '<esc>', ':noh<cr><esc>', opts)
