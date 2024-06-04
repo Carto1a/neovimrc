@@ -8,7 +8,7 @@ require("cartola.lazy_init")
 local autocmd = vim.api.nvim_create_autocmd
 local autogroup = vim.api.nvim_create_augroup
 
-vim.cmd.colorscheme("gruvbox-material")
+vim.cmd.colorscheme("rose-pine-main")
 
 autocmd('LspAttach', {
     group = autogroup('UserLspConfig', {}),
