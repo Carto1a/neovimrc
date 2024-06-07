@@ -15,6 +15,8 @@ vim.opt.foldlevelstart = 99
 vim.opt.breakindent = true
 vim.opt.ignorecase = true
 --vim.opt.autochdir = true
+vim.opt.fileformats = { "unix", "dos", "mac" }
+vim.opt.fileformat = "unix"
 
 function teste()
 
