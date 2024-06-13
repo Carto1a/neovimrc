@@ -1,5 +1,6 @@
 return {
 	"folke/trouble.nvim",
+    tag = "v2.10.0",
 	config = function()
 		local setmap = vim.keymap.set
 		local trouble = require("trouble")
