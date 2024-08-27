@@ -13,7 +13,10 @@ return {
                 "query",
                 "java",
                 "javascript",
-                "typescript"
+                "typescript",
+                "zig",
+                "go",
+                "c_sharp",
             },
 
             -- Install parsers synchronously (only applied to `ensure_installed`)
