@@ -5,22 +5,27 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "j-hui/fidget.nvim",
+        "folke/neoconf.nvim"
     },
 
     config = function()
         require("fidget").setup({})
         require("mason").setup()
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-        local lspconfig = require("lspconfig")
+        require("neoconf").setup({})
 
-        vim.diagnostic.config({
-            virtual_text = true,
-            signs = true,
-            underline = false,
-            update_in_insert = false,
-            severity_sort = false,
-        })
+        local lspconfig = require("lspconfig")
+        local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
+        local capabilities = vim.tbl_deep_extend(
+            "force",
+            {},
+            vim.lsp.protocol.make_client_capabilities(),
+            cmp_nvim_lsp.default_capabilities()
+        )
+
+        local function get_servers_settings(server_name)
+            return require("neoconf").get("lspconfig." .. server_name) or {}
+        end
 
         vim.diagnostic.config({
             update_in_insert = true,
@@ -31,7 +36,12 @@ return {
                 source = "always",
                 header = "",
                 prefix = "",
-            }
+            },
+
+            virtual_text = true,
+            signs = true,
+            underline = false,
+            severity_sort = false,
         })
 
         require("mason-lspconfig").setup({
@@ -44,7 +54,65 @@ return {
             },
             handlers = {
                 function(server_name)
-                    lspconfig[server_name].setup({})
+                    local settings = get_servers_settings(server_name)
+
+                    local default_configuration = {
+                        capabilities = capabilities
+                    }
+
+                    if next(settings) == nil then
+                        lspconfig[server_name].setup({
+                            capabilities = capabilities,
+                        })
+                        return
+                    end
+
+                    if settings.enable ~= nil then
+                        if not settings.enable then
+                            return
+                        end
+                    end
+
+                    local configuration = vim.tbl_deep_extend(
+                        "force",
+                        {},
+                        default_configuration,
+                        settings
+                    )
+
+                    lspconfig[server_name].setup(configuration)
+                end,
+
+                ["ts_ls"] = function()
+                    local neoconf = require("neoconf")
+                    local settings = neoconf.get("lspconfig.ts_ls") or {}
+
+                    if next(settings) == nil then
+                        lspconfig.ts_ls.setup({
+                            capabilities = capabilities,
+                        })
+                        return
+                    end
+
+                    if settings.vue then
+                        local mason_registry = require('mason-registry')
+                        local vue_language_server_path = mason_registry.get_package('vue-language-server')
+                            :get_install_path() ..
+                            '/node_modules/@vue/language-server'
+                        lspconfig.ts_ls.setup({
+                            capabilities = capabilities,
+                            init_options = {
+                                plugins = {
+                                    {
+                                        name = "@vue/typescript-plugin",
+                                        location = vue_language_server_path,
+                                        languages = { "vue" },
+                                    }
+                                }
+                            },
+                            filetypes = { "typescript", "javascript", "vue" },
+                        })
+                    end
                 end,
 
                 ["omnisharp"] = function()
@@ -54,21 +122,6 @@ return {
                         enable_import_completion = true,
                     })
                 end,
-
-                ["lua_ls"] = function()
-                    lspconfig.lua_ls.setup({
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { "vim" }
-                                },
-                                hint = {
-                                    enable = true
-                                }
-                            }
-                        }
-                    })
-                end
             }
         })
     end
