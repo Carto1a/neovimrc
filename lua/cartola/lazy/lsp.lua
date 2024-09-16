@@ -61,9 +61,7 @@ return {
                     }
 
                     if next(settings) == nil then
-                        lspconfig[server_name].setup({
-                            capabilities = capabilities,
-                        })
+                        lspconfig[server_name].setup(default_configuration)
                         return
                     end
 
@@ -86,21 +84,35 @@ return {
                 ["ts_ls"] = function()
                     local neoconf = require("neoconf")
                     local settings = neoconf.get("lspconfig.ts_ls") or {}
+                    local lsp_configurations = {
+                        capabilities = capabilities,
+                    }
+
+                    if settings.enable ~= nil then
+                        if not settings.enable then
+                            return
+                        end
+                    end
 
                     if next(settings) == nil then
-                        lspconfig.ts_ls.setup({
-                            capabilities = capabilities,
-                        })
+                        lspconfig.ts_ls.setup(lsp_configurations)
                         return
                     end
+
+                    local configuration = vim.tbl_deep_extend(
+                        "force",
+                        {},
+                        lsp_configurations,
+                        settings
+                    )
 
                     if settings.vue then
                         local mason_registry = require('mason-registry')
                         local vue_language_server_path = mason_registry.get_package('vue-language-server')
                             :get_install_path() ..
                             '/node_modules/@vue/language-server'
-                        lspconfig.ts_ls.setup({
-                            capabilities = capabilities,
+
+                        local vue_configuration = {
                             init_options = {
                                 plugins = {
                                     {
@@ -111,16 +123,12 @@ return {
                                 }
                             },
                             filetypes = { "typescript", "javascript", "vue" },
-                        })
-                    end
-                end,
+                        }
 
-                ["omnisharp"] = function()
-                    lspconfig.omnisharp.setup({
-                        enable_roslyn_analyzers = true,
-                        organize_imports_on_format = true,
-                        enable_import_completion = true,
-                    })
+                        configuration = vim.tbl_deep_extend("force", configuration, vue_configuration)
+                    end
+
+                    lspconfig.ts_ls.setup(configuration)
                 end,
             }
         })
