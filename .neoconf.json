@@ -2,13 +2,7 @@
     "lspconfig": {
         "lua_ls": {
             "enable": true,
-            "settings": {
-                "Lua": {
-                    "diagnostics": {
-                        "globals": ["vim"]
-                    }
-                }
-            }
+            "vim": true
         }
     }
 }

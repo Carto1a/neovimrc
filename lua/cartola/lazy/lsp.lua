@@ -29,11 +29,12 @@ return {
 
         vim.diagnostic.config({
             update_in_insert = true,
+            style = "minimal",
             float = {
                 focusable = false,
                 style = "minimal",
                 border = "rounded",
-                source = "always",
+                source = true,
                 header = "",
                 prefix = "",
             },
@@ -79,6 +80,53 @@ return {
                     )
 
                     lspconfig[server_name].setup(configuration)
+                end,
+
+                ["lua_ls"] = function()
+                    local neoconf = require("neoconf")
+                    local settings = neoconf.get("lspconfig.lua_ls") or {}
+                    local lsp_configurations = {
+                        capabilities = capabilities,
+                    }
+
+                    if settings.enable ~= nil then
+                        if not settings.enable then
+                            return
+                        end
+                    end
+
+                    if next(settings) == nil then
+                        lspconfig.lua_ls.setup(lsp_configurations)
+                        return
+                    end
+
+                    local configuration = vim.tbl_deep_extend(
+                        "force",
+                        {},
+                        lsp_configurations,
+                        settings
+                    )
+
+                    if settings.vim then
+                        local vim_configuration = {
+                            settings = {
+                                Lua = {
+                                    runtime = {
+                                        version = 'LuaJIT',
+                                    },
+                                    workspace = {
+                                        library = {
+                                            vim.env.VIMRUNTIME
+                                        }
+                                    }
+                                }
+                            },
+                        }
+
+                        configuration = vim.tbl_deep_extend("force", configuration, vim_configuration)
+                    end
+
+                    lspconfig.lua_ls.setup(configuration)
                 end,
 
                 ["ts_ls"] = function()
