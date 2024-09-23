@@ -1,16 +1,17 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
+        {
+            "williamboman/mason-lspconfig.nvim",
+            dependencies = { "williamboman/mason.nvim" }
+        },
         'hrsh7th/cmp-nvim-lsp',
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
         "j-hui/fidget.nvim",
         "folke/neoconf.nvim"
     },
 
     config = function()
         require("fidget").setup({})
-        require("mason").setup()
         require("neoconf").setup({})
 
         local lspconfig = require("lspconfig")

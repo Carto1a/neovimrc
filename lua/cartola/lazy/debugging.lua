@@ -1,137 +1,88 @@
 return {
-	'rcarriga/nvim-dap-ui',
-	dependencies = {
-		'mfussenegger/nvim-dap',
-	},
-	--config = function()
-	--	-- local dapui = require("dapui")
-	--	local dap = require("dap")
-	--	local dap_widgets = require("dap.ui.widgets")
-	--	-- dapui.setup()
-	--	-- dap.listeners.before.attach.dapui_config = function ()
-	--	-- 	dapui.open()
-	--	-- end
-	--	-- dap.listeners.before.launch.dapui_config = function ()
-	--	-- 	dapui.open()
-	--	-- end
-	--	-- dap.listeners.before.event_terminated.dapui_config = function ()
-	--	-- 	dapui.close()
-	--	-- end
-	--	-- dap.listeners.before.event_exited.dapui_config = function ()
-	--	-- 	dapui.close()
-	--	-- end
+    'mfussenegger/nvim-dap',
+    dependencies = {
+        "williamboman/mason.nvim",
+    },
+    keys = {
+        { "<leader>d",  "",                                                                                   desc = "+debug",                 mode = { "n", "v" } },
+        { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+        { "<leader>db", function() require("dap").toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
+        { "<F9>", function() require("dap").toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
+        { "<leader>dc", function() require("dap").continue() end,                                             desc = "Continue" },
+        { "<F5>", function() require("dap").continue() end,                                             desc = "Continue" },
+        { "<leader>da", function() require("dap").continue({ before = get_args }) end,                        desc = "Run with Args" },
+        { "<leader>dC", function() require("dap").run_to_cursor() end,                                        desc = "Run to Cursor" },
+        { "<leader>dg", function() require("dap").goto_() end,                                                desc = "Go to Line (No Execute)" },
+        { "<leader>di", function() require("dap").step_into() end,                                            desc = "Step Into" },
+        { "<F11>", function() require("dap").step_into() end,                                            desc = "Step Into" },
+        { "<leader>dj", function() require("dap").down() end,                                                 desc = "Down" },
+        { "<leader>dk", function() require("dap").up() end,                                                   desc = "Up" },
+        { "<leader>dl", function() require("dap").run_last() end,                                             desc = "Run Last" },
+        { "<leader>do", function() require("dap").step_out() end,                                             desc = "Step Out" },
+        { "<S-F11>", function() require("dap").step_out() end,                                             desc = "Step Out" },
+        { "<leader>dO", function() require("dap").step_over() end,                                            desc = "Step Over" },
+        { "<F10>", function() require("dap").step_over() end,                                            desc = "Step Over" },
+        { "<leader>dp", function() require("dap").pause() end,                                                desc = "Pause" },
+        { "<leader>dr", function() require("dap").repl.toggle() end,                                          desc = "Toggle REPL" },
+        { "<leader>ds", function() require("dap").session() end,                                              desc = "Session" },
+        { "<S-F5>", "<cmd>DapTerminate<cr>",                                            desc = "Terminate" },
+        { "<leader>dt", function () require("dap").terminate() end,                                            desc = "Terminate" },
+        { "<leader>dw", function() require("dap.ui.widgets").hover() end,                                     desc = "Widgets" },
+        { "<C-S-F5>", function () require("dap").restart() end,                                            desc = "Reload" },
+    },
+    lazy = true,
+    config = function()
+        local mason_registry = require('mason-registry')
+        local dap = require("dap")
 
-	--	dap.defaults.fallback.external_terminal = {
-	--		command = '/usr/bin/kitty',
-	--		args = { '-e' }
-	--	}
-	--	dap.defaults.fallback.force_external_terminal = true
-	--	dap.defaults.fallback.focus_terminal = true
-	--	-- dap.adapters["node"] = {
-	--	-- 	type = "server",
-	--	-- 	host = "localhost",
-	--	-- 	port = "${port}",
-	--	-- 	executable = {
-	--	-- 		command = "node",
-	--	-- 		-- 💀 Make sure to update this path to point to your installation
-	--	-- 		args = {
-	--	-- 			os.getenv("HOMEPATH") .. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
-	--	-- 			"${port}"
-	--	-- 		}
-	--	-- 		-- TODO: adicionar o cwd depois, Working directory
-	--	-- 		-- cwd = ""
-	--	-- 	}
-	--	-- }
-	--	dap.adapters["pwa-node"] = {
-	--		type = "server",
-	--		host = "localhost",
-	--		port = "${port}",
-	--		executable = {
-	--			command = "node",
-	--			-- 💀 Make sure to update this path to point to your installation
-	--			args = {
-	--				os.getenv("HOME") .. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
-	--				"${port}"
-	--			}
-	--			-- TODO: adicionar o cwd depois, Working directory
-	--			-- cwd = ""
-	--		}
-	--	}
-	--	dap.adapters.python = {
-	--		type = 'executable',
-	--		command = os.getenv("HOME") .. './virtualenvs/tools/bin/python',
-	--		args = { '-m', 'debugpy.adapter' },
-	--	}
+        vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+        local icons = {
+            Stopped             = { "→", "DiagnosticWarn", "DapStoppedLine" },
+            Breakpoint          = " ",
+            BreakpointCondition = " ",
+            BreakpointRejected  = { " ", "DiagnosticError" },
+            LogPoint            = ".>",
+        }
 
-	--	dap.configurations.javascript = {
-	--		{
-	--			type = "pwa-node",
-	--			request = "launch",
-	--			name = "Launch file",
-	--			program = "${file}",
-	--			cwd = "${workspaceFolder}",
-	--			--console = "integratedTerminal",
-	--		},
-	--	}
-	--	dap.configurations.typescript = {
-	--		{
-	--			type = "pwa-node",
-	--			request = "launch",
-	--			name = "Launch Current File (pwa-node with ts-node)",
-	--			cwd = vim.fn.getcwd(),
-	--			runtimeExecutable = 'ts-node',
-	--			--runtimeArgs = { '--esm' },
-	--			program = "${file}",
-	--			--args = { '${file}' },
-	--			sourceMaps = true,
-	--			protocol = 'inspector',
-	--			skipFiles = { '<node_internal>/**', 'node_modules/**' },
-	--			resolveSourceMapLocations = {
-	--				'${workspaceFolder}/**',
-	--				'!**/node_modules/**',
-	--			},
-	--		},
-	--		{
-	--			type = "pwa-node",
-	--			request = "launch",
-	--			name = "Launch Current File (pwa-node with tsc)",
-	--			cwd = vim.fn.getcwd(),
-	--			program = "${file}",
-	--		},
-	--	}
-	--	dap.configurations.python = {
-	--		type = 'python',
-	--		request = 'launch',
-	--		program = "${file}",
-	--		pythonPath = function()
-	--			return '/usr/bin/python'
-	--		end
-	--	}
+        for name, sign in pairs(icons) do
+            sign = type(sign) == "table" and sign or { sign }
+            vim.fn.sign_define(
+                "Dap" .. name,
+                { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+            )
+        end
 
-	--	vim.keymap.set('n', '<leader>dc', function()
-	--		if vim.fn.filereadable(".vscode/launch.json") then
-	--			require("dap.ext.vscode").load_launchjs(nil, {
-	--				node = {
-	--					"javascript",
-	--					"typescript"
-	--				},
-	--			})
-	--		end
-	--		dap.continue()
-	--	end)
-	--	vim.keymap.set('n', '<leader>dr', dap.restart)
-	--	vim.keymap.set('n', '<leader>dt', dap.terminate)
-	--	vim.keymap.set('n', '<leader>ds', dap.status)
-	--	vim.keymap.set('n', '<leader>dll', dap.repl.toggle)
-	--	vim.keymap.set('n', '<leader>dn', dap.step_over)
-	--	vim.keymap.set('n', '<leader>di', dap.step_into)
-	--	vim.keymap.set('n', '<leader>do', dap.step_out)
-	--	vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint)
-	--	vim.keymap.set('n', '<leader>dlb', dap.list_breakpoints)
-	--	vim.keymap.set('n', '<leader>dlc', dap.clear_breakpoints)
-	--	vim.keymap.set('n', '<leader>dh', function()
-	--		dap_widgets.hover()
-	--	end)
-	--	-- vim.keymap.set('n', '<leader>d')
-	--end,
+        -- dap.defaults.fallback.on_output = function(session, output_event) end
+
+        dap.defaults.fallback.external_terminal = {
+            command = '/usr/bin/kitty',
+            args = { '-e' },
+        }
+
+        dap.defaults.fallback.force_external_terminal = true
+
+        local vscode_dap = mason_registry.get_package('js-debug-adapter')
+            :get_install_path() ..
+            '/js-debug/src/dapDebugServer.js'
+        dap.adapters["pwa-node"] = {
+            type = "server",
+            host = "localhost",
+            port = "${port}",
+            executable = {
+                command = "node",
+                args = { vscode_dap, "${port}" }
+            }
+        }
+
+        dap.configurations.javascript = {
+            {
+                type = "pwa-node",
+                request = "launch",
+                name = "Launch file",
+                console = "externalTerminal",
+                program = "${file}",
+                cwd = "${workspaceFolder}"
+            }
+        }
+    end
 }

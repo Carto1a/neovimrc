@@ -20,4 +20,5 @@ return {
     "tpope/vim-fugitive",
     "tpope/vim-commentary",
     "nvim-treesitter/nvim-treesitter-context",
+    { "williamboman/mason.nvim", opts = {} }
 }
