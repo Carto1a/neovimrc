@@ -28,6 +28,27 @@ return {
             return require("neoconf").get("lspconfig." .. server_name) or {}
         end
 
+        local function server_enabled(settings)
+            if settings.enable ~= nil then
+                return settings.enable
+            end
+
+            return true
+        end
+
+        local function server_have_config(settings)
+            return next(settings) ~= nil
+        end
+
+        local function deep_copy(tbl1, tbl2)
+            return vim.tbl_deep_extend(
+                "force",
+                {},
+                tbl1,
+                tbl2
+            )
+        end
+
         vim.diagnostic.config({
             update_in_insert = true,
             float = {
@@ -56,56 +77,41 @@ return {
             handlers = {
                 function(server_name)
                     local settings = get_servers_settings(server_name)
-
-                    local default_configuration = {
+                    local configuration = {
                         capabilities = capabilities
                     }
 
-                    if next(settings) == nil then
-                        lspconfig[server_name].setup(default_configuration)
+                    if not server_have_config(settings) then
+                        lspconfig[server_name].setup(configuration)
                         return
                     end
 
-                    if settings.enable ~= nil then
-                        if not settings.enable then
-                            return
-                        end
+                    if not server_enabled(settings) then
+                        return
                     end
 
-                    local configuration = vim.tbl_deep_extend(
-                        "force",
-                        {},
-                        default_configuration,
-                        settings
-                    )
+                    local configuration = deep_copy(default_configuration, settings)
 
                     lspconfig[server_name].setup(configuration)
                 end,
 
                 ["lua_ls"] = function()
-                    local neoconf = require("neoconf")
-                    local settings = neoconf.get("lspconfig.lua_ls") or {}
-                    local lsp_configurations = {
+                    local server_name = "lua_ls"
+                    local settings = get_servers_settings(server_name)
+                    local configuration = {
                         capabilities = capabilities,
                     }
 
-                    if settings.enable ~= nil then
-                        if not settings.enable then
-                            return
-                        end
-                    end
-
-                    if next(settings) == nil then
-                        lspconfig.lua_ls.setup(lsp_configurations)
+                    if not server_have_config(settings) then
+                        lspconfig[server_name].setup(configuration)
                         return
                     end
 
-                    local configuration = vim.tbl_deep_extend(
-                        "force",
-                        {},
-                        lsp_configurations,
-                        settings
-                    )
+                    if not server_enabled(settings) then
+                        return
+                    end
+
+                    configuration = deep_copy(configuration, settings)
 
                     if settings.vim then
                         local vim_configuration = {
@@ -123,36 +129,29 @@ return {
                             },
                         }
 
-                        configuration = vim.tbl_deep_extend("force", configuration, vim_configuration)
+                        configuration = deep_copy(configuration, vim_configuration)
                     end
 
                     lspconfig.lua_ls.setup(configuration)
                 end,
 
                 ["ts_ls"] = function()
-                    local neoconf = require("neoconf")
-                    local settings = neoconf.get("lspconfig.ts_ls") or {}
-                    local lsp_configurations = {
+                    local server_name = "ts_ls"
+                    local settings = get_servers_settings(server_name)
+                    local configuration = {
                         capabilities = capabilities,
                     }
 
-                    if settings.enable ~= nil then
-                        if not settings.enable then
-                            return
-                        end
-                    end
-
-                    if next(settings) == nil then
-                        lspconfig.ts_ls.setup(lsp_configurations)
+                    if not server_have_config(settings) then
+                        lspconfig[server_name].setup(configuration)
                         return
                     end
 
-                    local configuration = vim.tbl_deep_extend(
-                        "force",
-                        {},
-                        lsp_configurations,
-                        settings
-                    )
+                    if not server_enabled(settings) then
+                        return
+                    end
+
+                    configuration = deep_copy(configuration, settings)
 
                     if settings.vue then
                         local mason_registry = require('mason-registry')
@@ -173,7 +172,7 @@ return {
                             filetypes = { "typescript", "javascript", "vue" },
                         }
 
-                        configuration = vim.tbl_deep_extend("force", configuration, vue_configuration)
+                        configuration = deep_copy(configuration, vue_configuration)
                     end
 
                     lspconfig.ts_ls.setup(configuration)
