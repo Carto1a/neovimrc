@@ -59,9 +59,9 @@ map('i', '<C-0>', '<Home>', opts)
 map('i', '<C-_>', '<esc><S-_>i', opts)
 
 -- TODO: if eof make more lines
-map('i', '<A-j>', ':m .+1<cr>==', opts)
-map('i', '<A-k>', ':m .-2<cr>==', opts)
 map('n', '<A-j>', ':m .+1<cr>==', opts)
+-- map('i', '<A-j>', '<esc><cmd>m .+1<cr>==<cr><down>i', opts)
+-- map('i', '<A-k>', '<esc><cmd>m .-2<cr>==<cr><up>i', opts)
 map('n', '<A-k>', ':m .-2<cr>==', opts)
 map('x', '<A-j>', ':m \'>+1<cr>gv=gv', opts)
 map('x', '<A-k>', ':m -2<cr>gv=gv', opts)
