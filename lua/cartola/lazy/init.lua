@@ -18,7 +18,13 @@ return {
         }
     },
     "tpope/vim-fugitive",
-    "tpope/vim-commentary",
+    -- "tpope/vim-commentary",
     "nvim-treesitter/nvim-treesitter-context",
-    { "williamboman/mason.nvim", opts = {} }
+    { "williamboman/mason.nvim", opts = {} },
+    {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        opts = {
+            enable_autocmd = false,
+        }
+    }
 }
