@@ -13,7 +13,6 @@ vim.cmd.colorscheme("rose-pine-main")
 autocmd('LspAttach', {
     group = autogroup('UserLspConfig', {}),
     callback = function(ev)
-
         local opts = { buffer = ev.buf }
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, opts)
@@ -32,15 +31,28 @@ autocmd('LspAttach', {
         vim.keymap.set({ 'n', 'v' }, 'gll', vim.lsp.buf.code_action, opts)
         vim.keymap.set('n', 'gln', vim.lsp.buf.rename, opts)
         vim.keymap.set('n', '<leader>f', function()
-            vim.lsp.buf.format { async = true }
+            require('conform').format(
+                {
+                    bufnr = vim.api.nvim_get_current_buf(),
+                    async = true,
+                    lsp_format = "fallback"
+                })
+            -- vim.lsp.buf.format { async = true }
         end, opts)
         vim.keymap.set('n', '<C-S-i>', function()
-            vim.lsp.buf.format({ async = true })
+            require('conform').format(
+                {
+                    bufnr = vim.api.nvim_get_current_buf(),
+                    async = true,
+                    lsp_format = "fallback"
+                })
+            -- vim.lsp.buf.format({ async = true })
         end, opts)
         vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
         vim.keymap.set('n', '<leader>glh', function()
             vim.lsp.inlay_hint.enable(
-                not vim.lsp.inlay_hint.is_enabled()) end, opts)
+                not vim.lsp.inlay_hint.is_enabled())
+        end, opts)
     end,
 })
 
