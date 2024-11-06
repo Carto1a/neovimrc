@@ -1,12 +1,16 @@
 return {
-    { "rose-pine/neovim",         priority = 1000, name = "rose-pine" },
-    { "sainnhe/gruvbox-material", priority = 1000 },
-    { "ellisonleao/gruvbox.nvim", priority = 1000 },
+    {
+        "rose-pine/neovim",
+        priority = 1000,
+        name = "rose-pine"
+    },
     "nvim-tree/nvim-web-devicons",
-    "github/copilot.vim",
+    -- { "github/copilot.vim" },
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
+        lazy = true,
+        event = "BufReadPre",
         opts = {
             indent = {
                 char = { "▎" },
@@ -17,13 +21,35 @@ return {
             },
         }
     },
-    "tpope/vim-fugitive",
-    "tpope/vim-commentary",
-    "nvim-treesitter/nvim-treesitter-context",
-    { "williamboman/mason.nvim", opts = {} },
+    {
+        "tpope/vim-fugitive",
+        lazy = true,
+        -- TODO: verificar se existe mais comando do vim-fugitive
+        cmd = { "Git" }
+    },
+    {
+        "tpope/vim-commentary",
+        lazy = true,
+
+        -- TODO: veficar todas as keys
+        -- keys = { "gc" }
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        lazy = true,
+        event = "BufReadPre"
+
+    },
+    {
+        "williamboman/mason.nvim",
+        lazy = true,
+        cmd = "Mason",
+        opts = {}
+    },
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
-        opts = {
-        }
+        lazy = true,
+        event = "BufReadPre",
+        opts = {}
     }
 }
