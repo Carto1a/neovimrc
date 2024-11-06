@@ -37,7 +37,7 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-context",
         lazy = true,
-        event = "BufReadPre"
+        event = "BufRead"
 
     },
     {

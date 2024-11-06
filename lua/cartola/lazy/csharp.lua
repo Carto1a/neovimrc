@@ -4,6 +4,7 @@ return {
         'nvim-lua/plenary.nvim'
     },
     ft = { "cs" },
+    lazy = true,
     config = function()
         local omnisharp = require("omnisharp_extended");
 

@@ -4,6 +4,8 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim'
     },
+    lazy = true,
+    event = { "VimEnter" },
     config = function()
         require('telescope').setup({})
         local builtin = require('telescope.builtin')

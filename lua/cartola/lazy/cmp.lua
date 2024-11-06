@@ -2,16 +2,17 @@ return {
     'hrsh7th/nvim-cmp',
     dependencies = {
         'hrsh7th/cmp-nvim-lsp',
-        dependencies = {
-            'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            "hrsh7th/cmp-nvim-lsp-signature-help",
-            --'hrsh7th/cmp-cmdline',
-            'saadparwaiz1/cmp_luasnip',
-            "onsails/lspkind.nvim",
-        }
+        'L3MON4D3/LuaSnip',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        --'hrsh7th/cmp-cmdline',
+        'saadparwaiz1/cmp_luasnip',
+        "onsails/lspkind.nvim",
     },
+
+    lazy = true,
+    event = { "InsertEnter" },
 
     config = function()
         local cmp = require("cmp")

@@ -3,12 +3,15 @@ return {
     dependencies = {
         {
             "williamboman/mason-lspconfig.nvim",
-            dependencies = { "williamboman/mason.nvim" }
+            dependencies = { "williamboman/mason.nvim" },
         },
         'hrsh7th/cmp-nvim-lsp',
         "j-hui/fidget.nvim",
         "folke/neoconf.nvim"
     },
+
+    lazy = true,
+    event = "BufReadPre",
 
     config = function()
         require("fidget").setup({})
