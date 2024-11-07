@@ -12,7 +12,7 @@ return {
     },
 
     lazy = true,
-    event = { "InsertEnter" },
+    event = { "InsertEnter", "CmdlineEnter" },
 
     config = function()
         local cmp = require("cmp")
@@ -89,7 +89,7 @@ return {
                 ["<C-p>"] = cmp.mapping.select_prev_item({
                     behavior = cmp.ConfirmBehavior.Insert
                 }),
-                ['<C-space>'] = cmp.mapping.complete(),
+                ['<c-space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
             }),
@@ -103,7 +103,7 @@ return {
                 { name = 'buffer' },
             }),
             experimental = {
-                ghost_text = false
+                ghost_text = true
             },
             window = {
                 completion = {
@@ -123,6 +123,14 @@ return {
                     return kind
                 end,
             },
+        })
+
+        cmp.setup.cmdline({ "/", "?" }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' }
+            },
+            matching = { disallow_symbol_nonprefix_matching = false }
         })
     end
 }
