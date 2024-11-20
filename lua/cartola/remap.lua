@@ -1,9 +1,14 @@
 vim.g.mapleader = " "
-local map = vim.api.nvim_set_keymap
+-- local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("x", "<C-c>", ':%y+<cr>', {noremap=true, silent=true})
+map("n", "<leader>pv", vim.cmd.Ex)
+map("x", "<C-c>", ':%y+<cr>', { noremap = true, silent = true })
+
+-- UpperCase Navigation
+map('n', '<C-l>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(false) end, opts)
+map('n', '<C-h>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(true) end, opts)
 
 -- Mapeamentos em modo de inserção
 map('i', "'<tab>", "''<left>", opts)
@@ -43,8 +48,8 @@ map('n', '<esc>', ':noh<cr><esc>', opts)
 
 -- Mapeamentos de navegação entre janelas
 map('n', '<C-k>', '<C-w>k', opts)
-map('n', '<C-h>', '<C-w>h', opts)
-map('n', '<C-l>', '<C-w>l', opts)
+-- map('n', '<C-h>', '<C-w>h', opts)
+-- map('n', '<C-l>', '<C-w>l', opts)
 map('n', '<C-j>', '<C-w>j', opts)
 
 -- Mapeamentos de navegação rápida
@@ -71,5 +76,3 @@ map('n', '<leader>y', '"+y', opts)
 map('v', '<leader>y', '"+y', opts)
 map('n', '<leader>p', '"+p', opts)
 map('v', '<leader>p', '"+p', opts)
-
-
