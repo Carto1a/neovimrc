@@ -7,9 +7,9 @@ return {
     lazy = true,
     keys = { "<leader>tc" },
     cmd = { "TodoTrouble" },
-    event = "BufReadPre",
+    event = "BufRead",
     config = function()
         local todo = require("todo-comments").setup({})
-        vim.keymap.set("n", "<leader>tc", ":TodoTrouble<cr>")
+        vim.keymap.set("n", "<leader>tc", "<cmd>TodoTrouble<cr>")
     end,
 }

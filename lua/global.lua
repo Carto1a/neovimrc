@@ -1,4 +1,4 @@
-local OS = vim.loop.os_uname().sysname
+local OS = vim.uv.os_uname().sysname
 local HOMEENVS = {
     ["Windows_NT"] = "HOMEPATH",
     ["Linux"] = "HOME"
