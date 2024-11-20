@@ -1,14 +1,17 @@
 vim.g.mapleader = " "
+
 -- local map = vim.api.nvim_set_keymap
 local map = vim.keymap.set
+
+-- NOTE: para de fazer isso e colocar uns opts melhores nas keymaps
 local opts = { noremap = true, silent = true }
 
 map("n", "<leader>pv", vim.cmd.Ex)
-map("x", "<C-c>", ':%y+<cr>', { noremap = true, silent = true })
+map("x", "<c-c>", ':%y+<cr>', { noremap = true, silent = true })
 
 -- UpperCase Navigation
-map('n', '<C-l>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(false) end, opts)
-map('n', '<C-h>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(true) end, opts)
+map('n', '<c-l>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(false) end, opts)
+map('n', '<c-h>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(true) end, opts)
 
 -- Mapeamentos em modo de inserção
 map('i', "'<tab>", "''<left>", opts)
@@ -43,33 +46,25 @@ map('i', '</<cr>', '<<cr>/><esc>O<tab>', opts)
 map('i', '<<cr>', '<><cr></><esc>O<tab>', opts)
 
 -- Limpar destaque ao pressionar Esc no modo normal
-map('n', '<esc>', ':noh<cr><esc>', opts)
--- map('n', '<esc>', '<esc>^[ <esc>^[:noh<CR>', opts)
-
--- Mapeamentos de navegação entre janelas
-map('n', '<C-k>', '<C-w>k', opts)
--- map('n', '<C-h>', '<C-w>h', opts)
--- map('n', '<C-l>', '<C-w>l', opts)
-map('n', '<C-j>', '<C-w>j', opts)
+map('n', '<esc>', '<cmd>noh<cr><esc>', opts)
 
 -- Mapeamentos de navegação rápida
-map('i', '<C-h>', '<Left>', opts)
-map('i', '<C-j>', '<Down>', opts)
-map('i', '<C-k>', '<Up>', opts)
-map('i', '<C-l>', '<Right>', opts)
+map('i', '<c-h>', '<left>', opts)
+map('i', '<c-j>', '<down>', opts)
+map('i', '<c-k>', '<up>', opts)
+map('i', '<c-l>', '<right>', opts)
 
 -- NOTE: não funciona no windows terminal
-map('i', '<C-4>', '<End>', opts)
-map('i', '<C-0>', '<Home>', opts)
-map('i', '<C-_>', '<esc><S-_>i', opts)
+map('i', '<c-4>', '<end>', opts)
+map('i', '<c-0>', '<home>', opts)
 
 -- TODO: if eof make more lines
-map('n', '<A-j>', ':m .+1<cr>==', opts)
--- map('i', '<A-j>', '<esc><cmd>m .+1<cr>==<cr><down>i', opts)
--- map('i', '<A-k>', '<esc><cmd>m .-2<cr>==<cr><up>i', opts)
-map('n', '<A-k>', ':m .-2<cr>==', opts)
-map('x', '<A-j>', ':m \'>+1<cr>gv=gv', opts)
-map('x', '<A-k>', ':m -2<cr>gv=gv', opts)
+map('n', '<a-j>', '<cmd>m .+1<cr>==', opts)
+map('i', '<a-k>', '<esc><cmd>m .-2<cr>==', opts)
+map('i', '<a-j>', '<esc><cmd>m .+1<cr>==', opts)
+map('n', '<a-k>', '<cmd>m .-2<cr>==', opts)
+map('x', '<a-j>', '<cmd>m \'>+1<cr>gv=gv', opts)
+map('x', '<a-k>', '<cmd>m -2<cr>gv=gv', opts)
 
 -- System clipboard
 map('n', '<leader>y', '"+y', opts)
