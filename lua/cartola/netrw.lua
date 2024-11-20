@@ -120,7 +120,7 @@ end
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("netrw", {}),
     desc = "Netrw mappings",
-    callback = function ()
+    callback = function()
         netrw_maps()
         -- draw_icons()
     end
