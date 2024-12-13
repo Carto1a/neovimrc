@@ -2,11 +2,11 @@ return {
     'hrsh7th/nvim-cmp',
     dependencies = {
         'hrsh7th/cmp-nvim-lsp',
-        'L3MON4D3/LuaSnip',
+        'hrsh7th/cmp-cmdline',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         "hrsh7th/cmp-nvim-lsp-signature-help",
-        --'hrsh7th/cmp-cmdline',
+        'L3MON4D3/LuaSnip',
         'saadparwaiz1/cmp_luasnip',
         "onsails/lspkind.nvim",
     },
@@ -96,12 +96,12 @@ return {
             }),
 
             sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'path' },
-                { name = 'luasnip' }, -- For luasnip users.
                 { name = 'nvim_lsp_signature_help' },
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' },
             }, {
                 { name = 'buffer' },
+                { name = 'path' },
             }),
             experimental = {
                 ghost_text = true
@@ -132,6 +132,23 @@ return {
                 { name = 'buffer' }
             },
             matching = { disallow_symbol_nonprefix_matching = false }
+        })
+
+        cmp.setup.cmdline({ ':' }, {
+            completion = {
+                autocomplete = false
+            },
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = 'path' }
+            }, {
+                {
+                    name = 'cmdline',
+                    option = {
+                        ignore_cmds = { 'Man', '!' }
+                    }
+                }
+            })
         })
     end
 }

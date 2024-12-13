@@ -3,7 +3,6 @@ local autogroup = vim.api.nvim_create_augroup
 local map = vim.api.nvim_buf_set_keymap
 
 -- NOTE: aprender a usar o autogroup
-
 autocmd("VimEnter", {
     pattern = "*",
     callback = function()
@@ -70,7 +69,6 @@ autocmd('FileType', {
     pattern = { 'markdown', 'text', 'gitcommit' },
     callback = function()
         vim.opt.textwidth = 80
-        vim.opt.spell = true
         vim.opt.spelllang = 'en_us,pt_br'
         vim.opt.wrap = true
     end,

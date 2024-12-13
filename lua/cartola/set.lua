@@ -7,6 +7,7 @@ vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.opt.incsearch = true
 vim.opt.wrap = false
+vim.opt.spell = true
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.history = 1000

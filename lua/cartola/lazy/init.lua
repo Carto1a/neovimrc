@@ -5,7 +5,6 @@ return {
         name = "rose-pine"
     },
     "nvim-tree/nvim-web-devicons",
-    -- { "github/copilot.vim" },
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
@@ -24,16 +23,14 @@ return {
     {
         "tpope/vim-fugitive",
         lazy = true,
-        -- TODO: verificar se existe mais comando do vim-fugitive
         cmd = { "Git" }
     },
-    {
-        "tpope/vim-commentary",
-        lazy = true,
+    -- {
+    --     "tpope/vim-commentary",
 
-        -- TODO: veficar todas as keys
-        -- keys = { "gc" }
-    },
+    --     -- TODO: veficar todas as keys
+    --     -- keys = { "gc" }
+    -- },
     {
         "nvim-treesitter/nvim-treesitter-context",
         lazy = true,
@@ -48,8 +45,10 @@ return {
     },
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
+        opts = {
+            enable_autocmd = false
+        },
         lazy = true,
         event = "BufReadPre",
-        opts = {}
     }
 }
