@@ -1,7 +1,7 @@
 M = {}
 
 local trouble = require("trouble")
-local last_mode = "document_diagnostics"
+local last_mode = "diagnostics_buffer"
 
 function M.open_menu(mode)
     print(mode)
