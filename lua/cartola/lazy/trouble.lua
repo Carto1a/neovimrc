@@ -4,24 +4,11 @@ return {
     tag = "v3.6.0",
     config = function()
         local setmap = vim.keymap.set
+        local open_menu = require("cartola.utils.util-trouble").open_menu;
         local trouble = require("trouble")
         trouble.setup({
             -- icons = false,
         })
-
-        local last_mode = "document_diagnostics"
-
-        local function open_menu(mode)
-            print(mode)
-            print(last_mode)
-            if mode == nil then
-                trouble.toggle(last_mode)
-                return
-            end
-
-            last_mode = mode
-            trouble.toggle(mode)
-        end
 
         setmap("n", "<leader>tt", function() open_menu() end)
         setmap("n", "<leader>tw", function() open_menu("workspace_diagnostics") end)

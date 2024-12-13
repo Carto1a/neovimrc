@@ -10,6 +10,8 @@ return {
     event = "BufRead",
     config = function()
         local todo = require("todo-comments").setup({})
-        vim.keymap.set("n", "<leader>tc", "<cmd>TodoTrouble<cr>")
+        local open_menu = require("cartola.utils.util-trouble").open_menu;
+
+        vim.keymap.set("n", "<leader>tc", function() open_menu("todo") end)
     end,
 }
