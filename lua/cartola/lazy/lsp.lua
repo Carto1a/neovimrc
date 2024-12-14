@@ -11,6 +11,7 @@ return {
     },
 
     lazy = true,
+    cmd = { "LspInfo" },
     event = "BufReadPre",
 
     config = function()
@@ -68,6 +69,8 @@ return {
             underline = false,
             severity_sort = false,
         })
+
+        require("lspconfig")["gdscript"].setup({ capabilities = capabilities })
 
         require("mason-lspconfig").setup({
             ensure_installed = {

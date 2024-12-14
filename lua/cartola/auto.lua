@@ -75,6 +75,15 @@ autocmd('FileType', {
 })
 
 autocmd("FileType", {
+    group = autogroup("godot", {}),
+    desc = "Change settings for godot",
+    pattern = "gdscript",
+    callback = function()
+        vim.opt.expandtab = false
+    end
+})
+
+autocmd("FileType", {
     group = autogroup("netrw", {}),
     desc = "Netrw mappings",
     callback = function()
