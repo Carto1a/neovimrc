@@ -70,7 +70,10 @@ return {
             severity_sort = false,
         })
 
-        require("lspconfig")["gdscript"].setup({ capabilities = capabilities })
+        require("lspconfig")["gdscript"].setup({
+            filetypes = { "gd", "gdscript", "gdscript3" },
+            capabilities = capabilities
+        })
 
         require("mason-lspconfig").setup({
             ensure_installed = {
