@@ -2,7 +2,8 @@ local autocmd = vim.api.nvim_create_autocmd
 local autogroup = vim.api.nvim_create_augroup
 local map = vim.api.nvim_buf_set_keymap
 
--- NOTE: aprender a usar o autogroup
+-- NOTE: Aprender a usar o autogroup
+-- NOTE: Agora eu entendi.
 autocmd("VimEnter", {
     pattern = "*",
     callback = function()
@@ -19,6 +20,18 @@ autocmd('LspAttach', {
     group = autogroup('UserLspConfig', {}),
     callback = function(ev)
         local opts = { buffer = ev.buf }
+
+        -- NOTE: para depois
+        vim.o.foldcolumn = '1'
+        vim.o.foldenable = true
+        vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
+        vim.o.foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+        vim.opt.foldtext = ""
+        vim.o.foldlevel = 99
+        vim.o.foldlevelstart = 99
+        vim.o.foldmethod = 'expr'
+
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, opts)
 
@@ -69,7 +82,7 @@ autocmd('FileType', {
     pattern = { 'markdown', 'text', 'gitcommit' },
     callback = function()
         vim.opt.textwidth = 80
-        vim.opt.spelllang = 'en_us,pt_br'
+        vim.opt.spelllang = 'pt_br,en_us'
         vim.opt.wrap = true
     end,
 })

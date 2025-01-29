@@ -8,6 +8,7 @@ vim.opt.expandtab = true
 vim.opt.incsearch = true
 vim.opt.wrap = false
 vim.opt.spell = true
+vim.opt.spelllang = 'pt_br,en_us'
 vim.opt.smartcase = true
 vim.opt.hlsearch = true
 vim.opt.history = 1000
