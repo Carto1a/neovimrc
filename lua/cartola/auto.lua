@@ -2,8 +2,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local autogroup = vim.api.nvim_create_augroup
 local map = vim.api.nvim_buf_set_keymap
 
--- NOTE: Aprender a usar o autogroup
--- NOTE: Agora eu entendi.
 autocmd("VimEnter", {
     pattern = "*",
     callback = function()
@@ -63,10 +61,6 @@ autocmd('LspAttach', {
                     lsp_format = "fallback"
                 })
         end, opts)
-        vim.keymap.set('n', '<leader>glh', function()
-            vim.lsp.inlay_hint.enable(
-                not vim.lsp.inlay_hint.is_enabled())
-        end, opts)
     end,
 })
 
@@ -93,17 +87,5 @@ autocmd("FileType", {
         -- Netrw dir navigation
         map(0, "n", "l", "<cr>", opts)
         map(0, "n", "h", "-", opts)
-
-        -- Create a new file and save it
-        map(0, "n", "ff", "%:w<CR>:buffer #<CR>", opts)
-
-        -- Create a new directory
-        map(0, "n", "fa", "d", opts)
-
-        -- Rename file
-        map(0, "n", "fr", "R", opts)
-
-        -- Remove file or directory
-        map(0, "n", "fd", "D", opts)
     end
 })

@@ -1,13 +1,10 @@
 vim.g.mapleader = " "
 
--- local map = vim.api.nvim_set_keymap
 local map = vim.keymap.set
 
--- NOTE: para de fazer isso e colocar uns opts melhores nas keymaps
 local opts = { noremap = true, silent = true }
 
 map("n", "<leader>pv", vim.cmd.Ex)
-map("x", "<c-c>", ':%y+<cr>', { noremap = true, silent = true })
 
 -- UpperCase Navigation
 map('n', '<c-l>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(false) end, opts)

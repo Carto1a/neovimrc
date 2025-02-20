@@ -1,5 +1,3 @@
--- TODO: arrumar os folds
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 4
@@ -15,7 +13,6 @@ vim.opt.history = 1000
 vim.opt.wildmenu = true
 vim.opt.breakindent = true
 vim.opt.ignorecase = true
---vim.opt.autochdir = true
 vim.opt.fileformats = { "unix", "dos", "mac" }
 vim.opt.fileformat = "unix"
 
@@ -31,12 +28,12 @@ vim.opt.list = true
 vim.opt.listchars = {
     trail = "~",
     eol = "·",
-    -- tab = '│ ',
     tab = "  ",
     extends = ">",
     precedes = "<",
     multispace = " ",
     lead = " ",
+    nbsp = "*"
 }
 
 vim.opt.scrolloff = 8
@@ -46,6 +43,7 @@ vim.opt.mouse = "a"
 vim.opt.conceallevel = 1
 vim.opt.termguicolors = true
 
-if vim.fn.has("nvim-0.10") == 1 then
-    vim.opt.smoothscroll = true
-end
+vim.g.netrw_bufsettings = 'ma nomod nu rnu nobl nowrap noro scl=yes'
+vim.g.netrw_list_hide = '\\(^\\|\\s\\s\\)\\zs\\.\\S\\+'
+
+vim.opt.smoothscroll = true
