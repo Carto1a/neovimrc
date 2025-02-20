@@ -1,15 +1,15 @@
 local M = {}
 local uppercase_pattern = "[A-Z]"
 
-function EOF()
+function EOL()
     local buf = vim.api.nvim_get_current_buf()
-    local eof = vim.api.nvim_buf_line_count(buf)
+    local eol = vim.api.nvim_buf_line_count(buf)
     local row = vim.api.nvim_win_get_cursor(0)[1]
 
-    return row == eof
+    return row == eol
 end
 
-function SOF()
+function SOL()
     local row = vim.api.nvim_win_get_cursor(0)[1]
     return row == 1
 end
@@ -51,13 +51,13 @@ function M.Jump_to_uppercase(reverse)
         return
     end
 
-    if not EOF() and not reverse then
+    if not EOL() and not reverse then
         vim.api.nvim_win_set_cursor(0, { row + 1, 0 })
         M.Jump_to_uppercase(false)
         return
     end
 
-    if not SOF() and reverse then
+    if not SOL() and reverse then
         local previus_line = vim.api.nvim_buf_get_lines(
             0, row - 2, row - 1, true)[1]
 
