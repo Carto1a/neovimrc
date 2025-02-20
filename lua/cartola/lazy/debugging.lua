@@ -52,8 +52,6 @@ return {
             )
         end
 
-        -- dap.defaults.fallback.on_output = function(session, output_event) end
-
         dap.defaults.fallback.external_terminal = {
             command = '/usr/bin/kitty',
             args = { '-e' },

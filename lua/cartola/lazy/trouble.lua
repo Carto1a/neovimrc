@@ -1,6 +1,5 @@
 return {
     "folke/trouble.nvim",
-    -- tag = "v2.10.0",
     tag = "v3.6.0",
     config = function()
         local setmap = vim.keymap.set

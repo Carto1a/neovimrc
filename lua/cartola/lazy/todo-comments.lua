@@ -9,7 +9,7 @@ return {
     cmd = { "TodoTrouble" },
     event = "BufRead",
     config = function()
-        local todo = require("todo-comments").setup({})
+        require("todo-comments").setup({})
         local open_menu = require("cartola.utils.util-trouble").open_menu;
 
         vim.keymap.set("n", "<leader>tc", function() open_menu("todo") end)

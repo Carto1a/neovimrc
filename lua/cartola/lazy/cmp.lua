@@ -16,7 +16,6 @@ return {
 
     config = function()
         local cmp = require("cmp")
-        local lspkind = require("lspkind")
 
         local source_mapping = {
             nvim_lsp = "[LSP]",

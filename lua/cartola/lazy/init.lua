@@ -25,12 +25,6 @@ return {
         lazy = true,
         cmd = { "Git" }
     },
-    -- {
-    --     "tpope/vim-commentary",
-
-    --     -- TODO: veficar todas as keys
-    --     -- keys = { "gc" }
-    -- },
     {
         "nvim-treesitter/nvim-treesitter-context",
         lazy = true,
