@@ -77,25 +77,6 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd('FileType', {
-    group = autogroup('wrap_spell', {}),
-    pattern = { 'markdown', 'text', 'gitcommit' },
-    callback = function()
-        vim.opt.textwidth = 80
-        vim.opt.spelllang = 'pt_br,en_us'
-        vim.opt.wrap = true
-    end,
-})
-
-autocmd("FileType", {
-    group = autogroup("godot", {}),
-    desc = "Change settings for godot",
-    pattern = "gdscript",
-    callback = function()
-        vim.opt.expandtab = false
-    end
-})
-
 autocmd("FileType", {
     group = autogroup("netrw", {}),
     desc = "Netrw mappings",

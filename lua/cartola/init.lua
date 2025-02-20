@@ -3,6 +3,7 @@ require("cartola.auto")
 require("cartola.remap")
 require("cartola.netrw")
 require("cartola.lazy_init")
+require("cartola.filetype_auto")
 require("cartola.utils.util-godot")
 
 vim.cmd.colorscheme("rose-pine-main")
