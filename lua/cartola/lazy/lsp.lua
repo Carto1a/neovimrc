@@ -28,6 +28,14 @@ return {
             cmp_nvim_lsp.default_capabilities()
         )
 
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true
+        }
+
+        -- NOTE: switch to blink.nvim, if blink capabilities not have set
+        -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+
         local function get_servers_settings(server_name)
             return require("neoconf").get("lspconfig." .. server_name) or {}
         end
@@ -99,7 +107,7 @@ return {
                         return
                     end
 
-                    local configuration = deep_copy(default_configuration, settings)
+                    configuration = deep_copy(configuration, settings)
 
                     lspconfig[server_name].setup(configuration)
                 end,
