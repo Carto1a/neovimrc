@@ -44,5 +44,9 @@ return {
         },
         lazy = true,
         event = "BufReadPre",
+    },
+    {
+        'andweeb/presence.nvim',
+        enabled = false
     }
 }
