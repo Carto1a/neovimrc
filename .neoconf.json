@@ -1,8 +1,13 @@
 {
     "lspconfig": {
         "lua_ls": {
-            "enable": true,
-            "vim": true
+            "enabled": true,
+            "vim": {
+                "enabled": true,
+                //"plugins": [
+                //    "blink.cmp"
+                //]
+            }
         }
     }
 }
