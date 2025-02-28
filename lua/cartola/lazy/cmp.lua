@@ -13,6 +13,7 @@ return {
 
     lazy = true,
     event = { "InsertEnter", "CmdlineEnter" },
+    enabled = false,
 
     config = function()
         local cmp = require("cmp")

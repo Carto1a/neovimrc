@@ -5,7 +5,8 @@ return {
             "williamboman/mason-lspconfig.nvim",
             dependencies = { "williamboman/mason.nvim" },
         },
-        'hrsh7th/cmp-nvim-lsp',
+        -- 'hrsh7th/cmp-nvim-lsp',
+        'saghen/blink.cmp',
         "j-hui/fidget.nvim",
         "folke/neoconf.nvim"
     },
@@ -19,13 +20,13 @@ return {
         require("neoconf").setup({})
 
         local lspconfig = require("lspconfig")
-        local cmp_nvim_lsp = require("cmp_nvim_lsp")
+        local cmp_nvim_lsp = require("blink-cmp").get_lsp_capabilities()
 
         local capabilities = vim.tbl_deep_extend(
             "force",
             {},
             vim.lsp.protocol.make_client_capabilities(),
-            cmp_nvim_lsp.default_capabilities()
+            cmp_nvim_lsp
         )
 
         capabilities.textDocument.foldingRange = {
@@ -33,8 +34,7 @@ return {
             lineFoldingOnly = true
         }
 
-        -- NOTE: switch to blink.nvim, if blink capabilities not have set
-        -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
 
         local function get_servers_settings(server_name)
             return require("neoconf").get("lspconfig." .. server_name) or {}
@@ -139,7 +139,8 @@ return {
                                     },
                                     workspace = {
                                         library = {
-                                            vim.env.VIMRUNTIME
+                                            vim.env.VIMRUNTIME,
+                                            vim.fn.stdpath("data") .. "/lazy" .. "/blink.cmp"
                                         }
                                     }
                                 }
