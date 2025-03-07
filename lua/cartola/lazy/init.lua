@@ -48,5 +48,9 @@ return {
     {
         'andweeb/presence.nvim',
         enabled = false
+    },
+    {
+        "Carto1a/hexer.nvim",
+        opts = {}
     }
 }
