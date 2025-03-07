@@ -4,9 +4,10 @@
             "enabled": true,
             "vim": {
                 "enabled": true,
-                //"plugins": [
-                //    "blink.cmp"
-                //]
+                "plugins": [
+                    "neoconf.nvim",
+                    "plenary.nvim"
+                ]
             }
         }
     }

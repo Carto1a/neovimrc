@@ -74,6 +74,7 @@ return {
                 ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
                 ["<C-p>"] = { 'select_prev', 'fallback_to_mappings' },
                 ['<c-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+                ['<tab>'] = { 'show', 'show_documentation', 'hide_documentation' },
                 ['<c-s>'] = { 'show', 'show_documentation', 'hide_documentation' },
                 ["<C-e>"] = { 'hide' },
                 ['<CR>'] = { 'accept', 'fallback' },
