@@ -47,3 +47,20 @@ vim.g.netrw_bufsettings = 'ma nomod nu rnu nobl nowrap noro scl=yes'
 vim.g.netrw_list_hide = '\\(^\\|\\s\\s\\)\\zs\\.\\S\\+'
 
 vim.opt.smoothscroll = true
+
+vim.diagnostic.config({
+    update_in_insert = true,
+    float = {
+        focusable = false,
+        style = "minimal",
+        border = "rounded",
+        source = true,
+        header = "",
+        prefix = "",
+    },
+
+    virtual_text = true,
+    signs = true,
+    underline = false,
+    severity_sort = false,
+})

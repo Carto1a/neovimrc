@@ -1,4 +1,4 @@
-M = {
+local M = {
     last_mode = "diagnostics_buffer"
 }
 
