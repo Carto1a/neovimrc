@@ -5,6 +5,7 @@ vim.opt.tabstop = 4
 vim.opt.expandtab = true
 vim.opt.incsearch = true
 vim.opt.wrap = false
+vim.opt.wrapmargin = 1
 vim.opt.spell = true
 vim.opt.spelllang = 'pt_br,en_us'
 vim.opt.smartcase = true
