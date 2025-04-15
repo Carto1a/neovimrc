@@ -11,6 +11,8 @@ return function(server_name, load_custom_config)
         return
     end
 
+    configuration = lsp_common.merge_table(configuration, settings)
+
     if settings.internal ~= nil then
         if not lsp_common.server_enabled(settings.internal) then
             return
