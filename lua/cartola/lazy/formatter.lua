@@ -12,11 +12,11 @@ return {
             --     lsp_format = "fallback",
             -- },
 
-            format_after_save = {
-                timeout_ms = 1500,
-                lsp_format = "fallback",
-                async = true,
-            },
+            -- format_after_save = {
+            --     timeout_ms = 1500,
+            --     lsp_format = "fallback",
+            --     async = true,
+            -- },
 
             formatters_by_ft = {
                 lua = { "stylua" },
