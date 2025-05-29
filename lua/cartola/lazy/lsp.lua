@@ -11,9 +11,9 @@ return {
         "folke/neoconf.nvim"
     },
 
-    lazy = true,
-    cmd = { "LspInfo" },
-    event = "BufReadPre",
+    -- lazy = true,
+    -- cmd = { "LspInfo" },
+    -- event = "BufReadPre",
 
     config = function()
         require("fidget").setup({})
@@ -29,46 +29,21 @@ return {
             capabilities = capabilities
         })
 
-        local handlers = {
-            function(server_name)
-                require('cartola.lsp.default')(server_name)
-            end,
-
-            ["lua_ls"] = function(server_name)
-                require("cartola.lsp.default")(server_name, require("cartola.lsp.lua_ls"))
-            end,
-
-            ["ts_ls"] = function(server_name)
-                require("cartola.lsp.default")(server_name, require("cartola.lsp.ts_ls"))
-            end
-        }
-
         require("mason-lspconfig").setup({
+            automatic_enable = false,
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
                 "ts_ls",
                 "omnisharp",
                 "zls",
-            },
-            handlers = handlers
+            }
         })
 
         vim.api.nvim_create_autocmd("User", {
             pattern = "ConfigChange",
             callback = function()
-                local installed_servers = require("mason-lspconfig").get_installed_servers()
-                for _, server_name in pairs(installed_servers) do
-                    print(server_name)
-                    local handler = handlers[server_name]
-                    if handler then
-                        handler(server_name)
-                        return
-                    end
-
-                    handlers[1](server_name)
-                end
-
+                require("cartola.lsp.lsp").configure_servers()
                 vim.cmd("LspRestart")
             end
         })

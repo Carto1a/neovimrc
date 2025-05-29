@@ -3,6 +3,7 @@ require("cartola.set")
 require("cartola.auto")
 require("cartola.remap")
 require("cartola.lazy_init")
+require("cartola.lsp.lsp").configure_servers()
 require("cartola.filetype_auto")
 require("cartola.utils.util-godot")
 

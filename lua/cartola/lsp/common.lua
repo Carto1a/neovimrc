@@ -42,7 +42,7 @@ end
 
 function M.setup_configuration(server_name, configuration)
     configuration.internal = nil
-    require("lspconfig")[server_name].setup(configuration)
+    vim.lsp.config(server_name, configuration)
 end
 
 return M
