@@ -66,7 +66,7 @@ autocmd('LspAttach', {
 autocmd('TextYankPost', {
     group = autogroup('UserTextYankPost', {}),
     callback = function(_)
-        vim.highlight.on_yank({ timeout = 150 })
+        vim.hl.on_yank({ timeout = 150 })
     end,
 })
 
