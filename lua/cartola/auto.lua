@@ -24,7 +24,6 @@ autocmd('LspAttach', {
         vim.o.foldenable = true
         vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
         vim.o.foldexpr = 'v:lua.vim.lsp.foldexpr()'
-        -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.opt.foldtext = ""
         vim.o.foldlevel = 99
         vim.o.foldlevelstart = 99
