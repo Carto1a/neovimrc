@@ -51,6 +51,9 @@ return {
     },
     {
         "Carto1a/hexer.nvim",
+        dir = "C:\\Users\\cepleite\\projetos\\hexer.nvim",
+        dev = true,
+        enabled = false,
         opts = {}
     }
 }

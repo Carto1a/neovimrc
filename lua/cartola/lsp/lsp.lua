@@ -16,14 +16,14 @@ local handlers = {
 
 function M.configure_servers()
     local installed_servers = require("mason-lspconfig").get_installed_servers()
-    for _, server_name in pairs(installed_servers) do
+    for _, server_name in ipairs(installed_servers) do
         local handler = handlers[server_name]
-        if handler then
-            handler(server_name)
-            return
+        if handler == nil then
+            handler = handlers[1]
         end
 
-        handlers[1](server_name)
+        assert(handler, "não existe um handler padrao")
+        handler(server_name)
     end
 end
 

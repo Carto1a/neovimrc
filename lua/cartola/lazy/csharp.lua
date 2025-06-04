@@ -15,7 +15,7 @@ return {
             ["textDocument/implementation"] = omnisharp.implementation_handler,
         }
 
-        require('lspconfig').omnisharp.setup({ handlers = handlers })
+        -- require('lspconfig').omnisharp.setup({ handlers = handlers })
 
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
     end

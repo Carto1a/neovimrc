@@ -1,14 +1,16 @@
 return {
-    "neovim/nvim-lspconfig",
+    "mason-org/mason-lspconfig.nvim",
     dependencies = {
+        { "mason-org/mason.nvim", opts = {} },
         {
-            "williamboman/mason-lspconfig.nvim",
-            dependencies = { "williamboman/mason.nvim" },
-        },
-        -- 'hrsh7th/cmp-nvim-lsp',
-        'saghen/blink.cmp',
-        "j-hui/fidget.nvim",
-        "folke/neoconf.nvim"
+            "neovim/nvim-lspconfig",
+            dependencies = {
+                -- 'hrsh7th/cmp-nvim-lsp',
+                'saghen/blink.cmp',
+                { "j-hui/fidget.nvim", opts = {} },
+                -- "folke/neoconf.nvim"
+            }
+        }
     },
 
     -- lazy = true,
@@ -16,18 +18,12 @@ return {
     -- event = "BufReadPre",
 
     config = function()
-        require("fidget").setup({})
-
-        local lsp_common = require('cartola.lsp.common')
-
         require("cartola.custom.project_config").setup({})
 
-        local capabilities = lsp_common.capabilities
-
-        require("lspconfig")["gdscript"].setup({
-            filetypes = { "gd", "gdscript", "gdscript3" },
-            capabilities = capabilities
-        })
+        -- require("lspconfig")["gdscript"].setup({
+        --     filetypes = { "gd", "gdscript", "gdscript3" },
+        --     capabilities = capabilities
+        -- })
 
         require("mason-lspconfig").setup({
             automatic_enable = false,
