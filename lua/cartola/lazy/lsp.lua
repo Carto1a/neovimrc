@@ -5,25 +5,14 @@ return {
         {
             "neovim/nvim-lspconfig",
             dependencies = {
-                -- 'hrsh7th/cmp-nvim-lsp',
                 'saghen/blink.cmp',
                 { "j-hui/fidget.nvim", opts = {} },
-                -- "folke/neoconf.nvim"
             }
         }
     },
 
-    -- lazy = true,
-    -- cmd = { "LspInfo" },
-    -- event = "BufReadPre",
-
     config = function()
         require("cartola.custom.project_config").setup({})
-
-        -- require("lspconfig")["gdscript"].setup({
-        --     filetypes = { "gd", "gdscript", "gdscript3" },
-        --     capabilities = capabilities
-        -- })
 
         require("mason-lspconfig").setup({
             automatic_enable = false,

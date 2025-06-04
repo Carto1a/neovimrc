@@ -19,15 +19,7 @@ autocmd('LspAttach', {
     callback = function(ev)
         local opts = { buffer = ev.buf }
 
-        -- NOTE: para depois
-        vim.o.foldcolumn = '1'
-        vim.o.foldenable = true
-        vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldclose:'
         vim.o.foldexpr = 'v:lua.vim.lsp.foldexpr()'
-        vim.opt.foldtext = ""
-        vim.o.foldlevel = 99
-        vim.o.foldlevelstart = 99
-        vim.o.foldmethod = 'expr'
 
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
         vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, opts)
