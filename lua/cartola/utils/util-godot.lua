@@ -1,16 +1,20 @@
-local function start_server(args)
-    local pipepath = vim.fn.stdpath("cache") .. "/godot.pipe"
+local M = {
+    enable = false,
+    default_pipe_path = vim.fn.stdpath("cache") .. "/godot.pipe",
+}
 
-    if args == "start" then
+---@param pipe_path? string
+function M.godot_toggle_server(pipe_path)
+    local pipepath = pipe_path or M.default_pipe_path
+    M.enable = not M.enable
+
+    if M.enable then
         if not vim.uv.fs_stat(pipepath) then
-            print("GodotServer start")
             vim.fn.serverstart(pipepath)
         end
 
         return
     end
-
-    print("GodotServer stop")
 
     if not vim.uv.fs_stat(pipepath) then
         vim.fn.serverstop(pipepath)
@@ -18,10 +22,10 @@ local function start_server(args)
 end
 
 vim.api.nvim_create_user_command('GodotServer', function(opts)
-    start_server(opts.args)
+    M.godot_toggle_server(opts.fargs[1])
 end, {
-    nargs = 1,
-    complete = function()
-        return { "start", "stop" }
-    end
+    nargs = "?",
+    complete = "file"
 })
+
+return M
