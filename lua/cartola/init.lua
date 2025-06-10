@@ -3,9 +3,8 @@ require("cartola.set")
 require("cartola.auto")
 require("cartola.remap")
 require("cartola.lazy_init")
-require("cartola.lsp.lsp").configure_servers()
-require("cartola.filetype_auto")
 require("cartola.utils.util-godot")
+require("cartola.lsp")
 
 vim.cmd.colorscheme("rose-pine-main")
 
@@ -15,3 +14,5 @@ vim.filetype.get_option = function(filetype, option)
         and require("ts_context_commentstring.internal").calculate_commentstring()
         or get_option(filetype, option)
 end
+
+vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.fn.stdpath("config") .. "/lua/cartola/runtime"

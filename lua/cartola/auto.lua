@@ -62,21 +62,21 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd("FileType", {
-    group = autogroup("netrw", {}),
-    desc = "Netrw mappings",
-    callback = function()
-        if vim.bo.filetype ~= "netrw" then
-            return
-        end
-
-        local opts = { silent = true }
-
-        -- Toggle dotfiles
-        map(0, "n", ".", "gh", opts)
-
-        -- Netrw dir navigation
-        map(0, "n", "l", "<cr>", opts)
-        map(0, "n", "h", "-", opts)
-    end
-})
+-- autocmd("FileType", {
+--     group = autogroup("netrw", {}),
+--     desc = "Netrw mappings",
+--     callback = function()
+--         if vim.bo.filetype ~= "netrw" then
+--             return
+--         end
+--
+--         local opts = { silent = true }
+--
+--         -- Toggle dotfiles
+--         map(0, "n", ".", "gh", opts)
+--
+--         -- Netrw dir navigation
+--         map(0, "n", "l", "<cr>", opts)
+--         map(0, "n", "h", "-", opts)
+--     end
+-- })

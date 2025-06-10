@@ -1,13 +1,11 @@
 {
-    "config": true,
+  "config": true,
   "lspconfig": {
     "lua_ls": {
-      "internal": {
+      "enabled": true,
+      "vim": {
         "enabled": true,
-        "vim": {
-          "enabled": true,
-          "plugins": []
-        }
+        "plugins": []
       }
     }
   }
