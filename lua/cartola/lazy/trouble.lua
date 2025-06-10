@@ -14,7 +14,6 @@ return {
                     },
                 },
                 lsp_references = {
-                    -- auto_refresh = false,
                     params = {
                         include_declaration = true,
                     },
@@ -46,5 +45,16 @@ return {
         setmap("n", "gr", function() open_menu("lsp_references") end)
         setmap("n", "gd", function() open_menu("lsp_definitions") end)
         setmap("n", "gi", function() open_menu("lsp_implementations") end)
+
+        vim.api.nvim_create_autocmd("BufRead", {
+            callback = function(args)
+                if vim.bo[args.buf].buftype == "quickfix" then
+                    vim.schedule(function()
+                        vim.cmd([[cclose]])
+                        open_menu("quickfix")
+                    end)
+                end
+            end,
+        })
     end,
 }

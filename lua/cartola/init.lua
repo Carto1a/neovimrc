@@ -1,7 +1,6 @@
-require("cartola.os_env")
 require("cartola.set")
 require("cartola.auto")
-require("cartola.remap")
+require("cartola.maps")
 require("cartola.lazy_init")
 require("cartola.utils.util-godot")
 require("cartola.lsp")

@@ -53,7 +53,6 @@ function M.setup(setup_args)
     M.config_path = vim.fn.expand("./.config.json")
 
     if not vim.uv.fs_stat(M.config_path) then
-        -- notify("file not exist")
         return
     end
 
@@ -68,7 +67,6 @@ end
 
 function M.get(key)
     if M.configuration == nil then
-        -- notify("config not exist")
         return nil
     end
 
