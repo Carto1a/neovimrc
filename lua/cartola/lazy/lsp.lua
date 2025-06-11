@@ -10,26 +10,26 @@ return {
             }
         }
     },
-
-    config = function()
+    opts = {
+        automatic_enable = false,
+        ensure_installed = {
+            "lua_ls",
+            "rust_analyzer",
+            "ts_ls",
+            "omnisharp",
+            "zls",
+        }
+    },
+    config = function(_, opts)
         require("cartola.custom.project_config").setup({})
 
-        require("mason-lspconfig").setup({
-            automatic_enable = false,
-            ensure_installed = {
-                "lua_ls",
-                "rust_analyzer",
-                "ts_ls",
-                "omnisharp",
-                "zls",
-            }
-        })
+        require("mason-lspconfig").setup(opts)
 
         vim.api.nvim_create_autocmd("User", {
             pattern = "ConfigChange",
             callback = function()
-                require("cartola.lsp.lsp").configure_servers()
-                vim.cmd("LspRestart")
+                vim.lsp.stop_client(vim.lsp.get_clients())
+                vim.cmd.edit()
             end
         })
     end

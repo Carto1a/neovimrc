@@ -1,22 +1,28 @@
 return {
     "L3MON4D3/LuaSnip",
     dependencies = {
-        "rafamadriz/friendly-snippets"
+        "rafamadriz/friendly-snippets",
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+            -- require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+        end
     },
-    version = "v2.3.0",
+    tag = "v2.3.0",
     build = "make install_jsregexp",
-    config = function()
-        local luaSnip = require("luasnip")
-        require("luasnip.loaders.from_vscode").lazy_load()
-
-        vim.keymap.set({ "i" }, "<C-K>", function() luaSnip.expand() end, { silent = true })
-        vim.keymap.set({ "i", "s" }, "<C-L>", function() luaSnip.jump(1) end, { silent = true })
-        vim.keymap.set({ "i", "s" }, "<C-H>", function() luaSnip.jump(-1) end, { silent = true })
-
-        vim.keymap.set({ "i", "s" }, "<C-E>", function()
-            if luaSnip.choice_active() then
-                luaSnip.change_choice(1)
-            end
-        end, { silent = true })
-    end
+    keys = {
+        { mode = { "i" },      "<C-K>", require("luasnip").expand,                  desc = "luasnip: expand [K]ey (expand snippet)" },
+        { mode = { "i", "s" }, "<C-L>", function() require("luasnip").jump(1) end,  desc = "luasnip: next entry" },
+        { mode = { "i", "s" }, "<C-H>", function() require("luasnip").jump(-1) end, desc = "luasnip: previus entry" },
+        {
+            mode = { "i", "s" },
+            "<C-E>",
+            function()
+                if require("luasnip").choice_active() then
+                    require("luasnip").change_choice(1)
+                end
+            end,
+            desc = "luasnip: next [E]xpandable choice"
+        }
+    },
+    opts = {}
 }

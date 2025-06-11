@@ -15,3 +15,13 @@ vim.filetype.get_option = function(filetype, option)
 end
 
 vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.fn.stdpath("config") .. "/lua/cartola/runtime"
+
+
+
+
+
+
+
+
+
+print(vim.fn.exepath("vsdbg"))

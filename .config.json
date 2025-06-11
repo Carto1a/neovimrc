@@ -5,7 +5,7 @@
       "enabled": true,
       "vim": {
         "enabled": true,
-        "plugins": []
+        "plugins": [ "gitsigns.nvim", "nvim-dap" ]
       }
     }
   }

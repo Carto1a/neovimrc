@@ -4,7 +4,7 @@ return {
         "williamboman/mason.nvim",
     },
     keys = {
-        { "<leader>d",  "",                                                                                   desc = "+debug",                 mode = { "n", "v" } },
+        { "<leader>d",  "",                                                                                   desc = "+debug", },
         { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
         { "<leader>db", function() require("dap").toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
         { "<F9>",       function() require("dap").toggle_breakpoint() end,                                    desc = "Toggle Breakpoint" },
@@ -35,6 +35,8 @@ return {
         local mason_registry = require('mason-registry')
         local dap = require("dap")
 
+        dap.set_log_level('trace')
+
         vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
         local icons = {
             Stopped             = { "→", "DiagnosticWarn", "DapStoppedLine" },
@@ -52,26 +54,38 @@ return {
             )
         end
 
-        dap.defaults.fallback.external_terminal = {
-            command = '/usr/bin/kitty',
-            args = { '-e' },
-        }
+        -- dap.defaults.fallback.external_terminal = {
+        --     command = '/usr/bin/kitty',
+        --     args = { '-e' },
+        -- }
 
-        dap.defaults.fallback.force_external_terminal = true
+        -- dap.defaults.fallback.force_external_terminal = true
+        --
 
-        local vscode_dap = mason_registry.get_package('js-debug-adapter')
-            :get_install_path() ..
-            '/js-debug/src/dapDebugServer.js'
 
-        dap.adapters["pwa-node"] = {
-            type = "server",
-            host = "localhost",
-            port = "${port}",
-            executable = {
-                command = "node",
-                args = { vscode_dap, "${port}" }
-            }
-        }
+        vim.api.nvim_create_user_command('DapListBreakpoints', function(opts)
+            require("dap").list_breakpoints(true)
+            print(vim.inspect(require("dap").list_breakpoints()))
+        end, {
+            nargs = 0,
+        })
+
+
+        require("cartola.debugging.dotnet")
+
+        -- local vscode_dap = mason_registry.get_package('js-debug-adapter')
+        --     :get_install_path() ..
+        --     '/js-debug/src/dapDebugServer.js'
+        --
+        -- dap.adapters["pwa-node"] = {
+        --     type = "server",
+        --     host = "localhost",
+        --     port = "${port}",
+        --     executable = {
+        --         command = "node",
+        --         args = { vscode_dap, "${port}" }
+        --     }
+        -- }
 
         dap.adapters.gdb = {
             type = "executable",
@@ -79,16 +93,21 @@ return {
             args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
         }
 
-        dap.configurations.javascript = {
-            {
-                type = "pwa-node",
-                request = "launch",
-                name = "Launch file",
-                console = "externalTerminal",
-                program = "${file}",
-                cwd = "${workspaceFolder}"
-            }
-        }
+        -- local vscode_dap = mason_registry.get_package('js-debug-adapter')
+        --     :get_install_path() ..
+        --     '/js-debug/src/dapDebugServer.js'
+
+
+        -- dap.configurations.javascript = {
+        --     {
+        --         type = "pwa-node",
+        --         request = "launch",
+        --         name = "Launch file",
+        --         console = "externalTerminal",
+        --         program = "${file}",
+        --         cwd = "${workspaceFolder}"
+        --     }
+        -- }
 
         dap.configurations.c = {
             {

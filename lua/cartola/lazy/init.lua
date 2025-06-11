@@ -28,8 +28,8 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-context",
         lazy = true,
-        event = "BufRead"
-
+        event = "BufRead",
+        opts = {}
     },
     {
         "williamboman/mason.nvim",
@@ -39,11 +39,11 @@ return {
     },
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
+        lazy = true,
+        event = "BufReadPre",
         opts = {
             enable_autocmd = false
         },
-        lazy = true,
-        event = "BufReadPre",
     },
     {
         'andweeb/presence.nvim',
