@@ -1,3 +1,4 @@
+require("cartola.utils").load_env_file(vim.g.NVIM_CONFIG .. "/lua/cartola" .. "/.env")
 require("cartola.set")
 require("cartola.auto")
 require("cartola.maps")
@@ -14,14 +15,7 @@ vim.filetype.get_option = function(filetype, option)
         or get_option(filetype, option)
 end
 
-vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.fn.stdpath("config") .. "/lua/cartola/runtime"
+vim.g.PROFILE = "cartola"
+vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.g.NVIM_CONFIG .. "/lua/cartola/runtime"
 
-
-
-
-
-
-
-
-
-print(vim.fn.exepath("vsdbg"))
+print(vim.g.ENV.TESTE)

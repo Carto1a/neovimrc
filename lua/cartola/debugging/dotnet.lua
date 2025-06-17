@@ -9,22 +9,18 @@ local function send_payload(client, payload)
 end
 
 function RunHandshake(self, request_payload)
-    print("teste 1")
-    local signjs = vim.fn.expand("%:p:h") .. "/vsdbgsignature.js"
-
-    print("node " ..
-        signjs ..
-        "'C:\\Users\\cepleite\\AppData\\Local\\Programs\\Microsoft VS Code'" .. " " .. request_payload.arguments.value)
+    local signjs = vim.g.NVIM_CONFIG .. "/lua/" .. vim.g.PROFILE .. "/debugging" .. "/vsdbgsignature.js"
 
     local signResult = io.popen("node " ..
         signjs ..
-        "'C:\\Users\\cepleite\\AppData\\Local\\Programs\\Microsoft VS Code'" .. " " .. request_payload.arguments.value)
+        " \"C:\\Users\\cepleite\\AppData\\Local\\Programs\\Microsoft VS Code\"" .. " " .. request_payload.arguments.value)
     if signResult == nil then
         dap_utils.notify('error while signing handshake', vim.log.levels.ERROR)
         return
     end
+
     local signature = signResult:read("*a")
-    signature = string.gsub(signature, '\n', '')
+    signature = signature:gsub('\n', ''):gsub("\"", "")
     local response = {
         type = "response",
         seq = 0,
@@ -42,10 +38,9 @@ local vsdbg_path = os.getenv(vim.g.HOME) ..
     "/.vscode/extensions/ms-dotnettools.csharp-2.80.16-win32-x64/.debugger/x86_64/vsdbg.exe"
 
 ---@class dap.ExecutableAdapter
-local vsdbg_adapter = {
-    id = 'vsdbg',
+local vsdbg_coreclr_adapter = {
+    id = 'coreclr',
     type = 'executable',
-    -- usar o ui?
     command = vsdbg_path,
     args = {
         "--interpreter=vscode"
@@ -53,42 +48,38 @@ local vsdbg_adapter = {
         -- "--consoleLogging",
     },
     options = {
-        externalTerminal = true,
+        -- externalTerminal = true,
         detached = false,
         logging = {
             moduleLoad = false,
             trace = true
         }
     },
-    runInTerminal = false,
+    runInTerminal = true,
     reverse_request_handlers = {
-        handshake = function(a, b)
-            print("teste 2")
-            RunHandshake(a, b)
-        end
+        handshake = RunHandshake
     }
 }
 
-dap.adapters.vsdbg = vsdbg_adapter
+dap.adapters.coreclr = vsdbg_coreclr_adapter
 
 ---@type dap.Configuration[]
 local vsdbg_configuration = {
     {
         name = "Launch - vsdbg",
-        type = "vsdbg",
+        type = "coreclr",
         request = "launch",
         program = function()
             return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
         end,
         cwd = vim.fn.getcwd(),
-        clientID = 'vscode',
-        clientName = 'Visual Studio Code',
-        externalTerminal = true,
+        -- externalTerminal = true,
         columnsStartAt1 = true,
         linesStartAt1 = true,
         locale = "en",
         pathFormat = "path",
-        externalConsole = true
+        console = "externalTerminal"
+        -- externalConsole = true
         -- stopAtEntry = true
         -- console = "externalTerminal"
     }

@@ -7,3 +7,4 @@ local HOME_ENVIRONMENTS = {
 
 vim.g.HOME = HOME_ENVIRONMENTS[OS]
 vim.g.NVIM_DATA = vim.fn.stdpath('data');
+vim.g.NVIM_CONFIG = vim.fn.stdpath('config')
