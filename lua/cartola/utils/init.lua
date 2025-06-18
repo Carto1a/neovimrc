@@ -1,8 +1,12 @@
 local M = {}
 
+vim.g.ENV = {}
+
 ---@param filepath string
 function M.load_env_file(filepath)
-    vim.g.ENV = {}
+    assert(filepath, "env path not provided")
+
+    if not vim.uv.fs_stat(filepath) then return end
 
     for line in io.lines(filepath) do
         print("line: ", line)
