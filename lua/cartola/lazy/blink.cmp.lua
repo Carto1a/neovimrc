@@ -1,6 +1,6 @@
 return {
     'saghen/blink.cmp',
-    -- build = 'cargo build --release',
+    build = 'cargo build --release',
     dependencies = {
         'L3MON4D3/LuaSnip'
     },
@@ -60,7 +60,7 @@ return {
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer' },
         },
-        fuzzy = { implementation = "prefer_rust_with_warning" },
+        fuzzy = { implementation = "rust" },
         snippets = { preset = 'luasnip' },
 
         cmdline = {
