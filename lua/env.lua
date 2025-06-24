@@ -5,6 +5,8 @@ local HOME_ENVIRONMENTS = {
     ["Linux"] = "HOME"
 }
 
-vim.g.HOME = HOME_ENVIRONMENTS[OS]
-vim.g.NVIM_DATA = vim.fn.stdpath('data');
-vim.g.NVIM_CONFIG = vim.fn.stdpath('config')
+vim.g.PATH = {
+    HOME = os.getenv(HOME_ENVIRONMENTS[OS]),
+    NVIM_DATA = vim.fn.stdpath('data'),
+    NVIM_CONFIG = vim.fn.stdpath('config')
+}

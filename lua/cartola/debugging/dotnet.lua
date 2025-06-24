@@ -9,7 +9,7 @@ local function send_payload(client, payload)
 end
 
 function RunHandshake(self, request_payload)
-    local signjs = vim.g.NVIM_CONFIG .. "/lua/" .. vim.g.PROFILE .. "/debugging" .. "/vsdbgsignature.js"
+    local signjs = vim.g.PATH.NVIM_CONFIG .. "/lua/" .. vim.g.PROFILE .. "/debugging" .. "/vsdbgsignature.js"
 
     local signResult = io.popen("node " ..
         signjs ..
@@ -34,7 +34,7 @@ function RunHandshake(self, request_payload)
     send_payload(self.client, response)
 end
 
-local vsdbg_path = os.getenv(vim.g.HOME) ..
+local vsdbg_path = vim.g.PATH.HOME ..
     "/.vscode/extensions/ms-dotnettools.csharp-2.80.16-win32-x64/.debugger/x86_64/vsdbg.exe"
 
 ---@class dap.ExecutableAdapter

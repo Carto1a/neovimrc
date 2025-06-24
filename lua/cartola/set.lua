@@ -19,7 +19,7 @@ vim.opt.fileformat = "unix"
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv(vim.g.HOME) .. "/.vim/undodir"
+vim.opt.undodir = vim.g.PATH.HOME .. "/.vim/undodir"
 vim.opt.undofile = true
 
 vim.opt.updatetime = 50
