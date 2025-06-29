@@ -2,8 +2,6 @@ require("cartola.set")
 require("cartola.auto")
 require("cartola.maps")
 require("cartola.lazy_init")
-require("cartola.utils.util-godot")
-require("cartola.utils.util-commands")
 require("cartola.lsp")
 require("cartola.commands")
 
