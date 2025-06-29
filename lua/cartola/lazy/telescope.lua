@@ -4,15 +4,12 @@ return {
     dependencies = {
         'nvim-lua/plenary.nvim'
     },
+    keys = {
+        { "<leader>pf", function() require('telescope.builtin').find_files() end,                                       desc = "telescope: [p]roject [f]iles" },
+        { "<leader>pg", function() require('telescope.builtin').git_files() end,                                        desc = "telescope: [p]roject [g]it files" },
+        { "<leader>fb", function() require('telescope.builtin').buffers() end,                                          desc = "telescope: [f]ind [b]uffers" },
+        { "<leader>ps", function() require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") }); end, desc = "telescope: [p]roject [s]earch (live grep)" } },
     lazy = true,
     event = { "VimEnter" },
-    opts = {},
-    config = function()
-        vim.keymap.set("n", "<leader>pf", require('telescope.builtin').find_files, {})
-        vim.keymap.set("n", "<leader>pg", require('telescope.builtin').git_files, {})
-        vim.keymap.set("n", "<leader>fb", require('telescope.builtin').buffers, {})
-        vim.keymap.set("n", "<leader>ps", function()
-            require('telescope.builtin').grep_string({ search = vim.fn.input("Grep > ") })
-        end, {})
-    end
+    opts = {}
 }
