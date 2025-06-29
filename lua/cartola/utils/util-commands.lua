@@ -7,7 +7,8 @@ vim.api.nvim_create_user_command('Vimcfg', function(opts)
         path = config .. '/lua/cartola/lazy/' .. plugin
     end
 
-    vim.cmd('split' .. path)
+    vim.cmd('tabedit' .. path)
+    vim.cmd('tcd' .. config)
 end, {
     nargs = '?',
     complete = function(_, _, _)
