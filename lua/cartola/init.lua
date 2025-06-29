@@ -5,6 +5,7 @@ require("cartola.lazy_init")
 require("cartola.utils.util-godot")
 require("cartola.utils.util-commands")
 require("cartola.lsp")
+require("cartola.commands")
 
 vim.cmd.colorscheme("rose-pine-main")
 
