@@ -1,9 +1,10 @@
-require("cartola.utils").load_env_file(vim.g.PATH.NVIM_CONFIG .. "/lua/cartola" .. "/.env")
+require("cartola.utils").load_env_file(vim.g.NVIM_CONFIG .. "/lua/cartola" .. "/.env")
 require("cartola.set")
 require("cartola.auto")
 require("cartola.maps")
 require("cartola.lazy_init")
 require("cartola.utils.util-godot")
+require("cartola.utils.util-commands")
 require("cartola.lsp")
 
 vim.cmd.colorscheme("rose-pine-main")
@@ -16,6 +17,6 @@ vim.filetype.get_option = function(filetype, option)
 end
 
 vim.g.PROFILE = "cartola"
-vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.g.PATH.NVIM_CONFIG .. "/lua/cartola/runtime"
+vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.g.NVIM_CONFIG .. "/lua/cartola/runtime"
 
 print(vim.g.ENV.TESTE)
