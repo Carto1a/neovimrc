@@ -17,6 +17,7 @@ if settings.vim and settings.vim.enabled then
                 workspace = {
                     library = {
                         vim.env.VIMRUNTIME,
+                        "${3rd}/luv/library"
                     }
                 }
             }
