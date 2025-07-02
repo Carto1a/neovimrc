@@ -7,8 +7,8 @@ local opts = { noremap = true, silent = true }
 map("n", "<leader>pv", vim.cmd.Ex)
 
 -- UpperCase Navigation
-map('n', '<c-l>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(false) end, opts)
-map('n', '<c-h>', function() require("cartola.custom.uppercasenavigation").Jump_to_uppercase(true) end, opts)
+map('n', '<c-l>', function() require("core.custom.uppercasenavigation").Jump_to_uppercase(false) end, opts)
+map('n', '<c-h>', function() require("core.custom.uppercasenavigation").Jump_to_uppercase(true) end, opts)
 
 -- Mapeamentos em modo de inserção
 map('i', "'<tab>", "''<left>", opts)

@@ -1,10 +1,10 @@
-require("cartola.custom.project_config").setup({})
+require("core.custom.project_config").setup({})
 require("cartola.set")
 require("cartola.auto")
 require("cartola.maps")
 require("cartola.lazy_init")
 require("cartola.lsp")
-require("cartola.commands")
+require("core.commands")
 
 vim.cmd.colorscheme("rose-pine-main")
 

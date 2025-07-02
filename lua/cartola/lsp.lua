@@ -19,7 +19,7 @@ function M.setup_default_settings(server_name, settings)
 end
 
 function M.get_servers_settings(server_name)
-    return require("cartola.custom.project_config").get("lspconfig." .. server_name) or {}
+    return require("core.custom.project_config").get("lspconfig." .. server_name) or {}
 end
 
 function M.server_have_config(settings)
@@ -34,6 +34,6 @@ function M.server_enabled(settings)
     return true
 end
 
-vim.lsp.enable({ "lua_ls", "ts_ls" })
+vim.lsp.enable({ "lua_ls", "ts_ls", "gopls", "omnisharp" })
 
 return M
