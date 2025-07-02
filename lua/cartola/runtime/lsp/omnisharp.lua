@@ -7,15 +7,17 @@ util.setup_default_settings(server_name, settings)
 
 local configuration = {}
 
-local omnisharp = require("omnisharp_extended");
+local ok, omnisharp_ext = pcall(require, "omnisharp_extended");
 
-local handlers = {
-    ["textDocument/definition"] = omnisharp.definition_handler,
-    ["textDocument/typeDefinition"] = omnisharp.type_definition_handler,
-    ["textDocument/references"] = omnisharp.references_handler,
-    ["textDocument/implementation"] = omnisharp.implementation_handler,
-}
+if ok then
+    local handlers = {
+        ["textDocument/definition"] = omnisharp_ext.definition_handler,
+        ["textDocument/typeDefinition"] = omnisharp_ext.type_definition_handler,
+        ["textDocument/references"] = omnisharp_ext.references_handler,
+        ["textDocument/implementation"] = omnisharp_ext.implementation_handler,
+    }
 
-configuration.handlers = handlers
+    configuration.handlers = handlers
+end
 
 return configuration

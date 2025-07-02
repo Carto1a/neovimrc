@@ -4,6 +4,7 @@ end
 
 vim.b.did_ftplugin = true
 
-local opts = { buffer = true }
-
-vim.keymap.set('n', 'gd', require('omnisharp_extended').lsp_definition, opts)
+local ok, omnisharp_ext = pcall(require, "omnisharp_extended")
+if ok then
+    vim.keymap.set('n', 'gd', omnisharp_ext.lsp_definition, { buffer = true })
+end
