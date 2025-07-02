@@ -1,30 +1,11 @@
 return {
-    "mason-org/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
     dependencies = {
         { "mason-org/mason.nvim", opts = {} },
-        {
-            "neovim/nvim-lspconfig",
-            dependencies = {
-                'saghen/blink.cmp',
-                { "j-hui/fidget.nvim", opts = {} },
-            }
-        }
+        { "j-hui/fidget.nvim",    opts = {} },
+        { 'saghen/blink.cmp' }
     },
-    opts = {
-        automatic_enable = false,
-        ensure_installed = {
-            "lua_ls",
-            "rust_analyzer",
-            "ts_ls",
-            "omnisharp",
-            "zls",
-        }
-    },
-    config = function(_, opts)
-        require("cartola.custom.project_config").setup({})
-
-        require("mason-lspconfig").setup(opts)
-
+    config = function()
         vim.api.nvim_create_autocmd("User", {
             pattern = "ConfigChange",
             callback = function()

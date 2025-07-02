@@ -1,3 +1,4 @@
+require("cartola.custom.project_config").setup({})
 require("cartola.set")
 require("cartola.auto")
 require("cartola.maps")
