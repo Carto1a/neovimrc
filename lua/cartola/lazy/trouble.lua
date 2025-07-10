@@ -1,15 +1,4 @@
-local last_mode = "diagnostics_buffer"
-
-local function open_menu(mode)
-    local trouble = require("trouble")
-    if mode == nil then
-        trouble.toggle(last_mode)
-        return
-    end
-
-    last_mode = mode
-    trouble.toggle(mode)
-end
+local open_menu = require("core.trouble").open_menu
 
 return {
     "folke/trouble.nvim",

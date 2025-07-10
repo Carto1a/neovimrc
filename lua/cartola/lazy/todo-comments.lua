@@ -1,3 +1,5 @@
+local open_menu = require("core.trouble").open_menu
+
 return {
     "folke/todo-comments.nvim",
     dependencies = {
@@ -6,7 +8,7 @@ return {
     },
     lazy = true,
     keys = {
-        { "<leader>tc", function() require("cartola.utils.util-trouble").open_menu("todo") end, desc = "trouble: commentaries" }
+        { "<leader>tc", function() open_menu("todo") end, desc = "trouble: commentaries" }
     },
     cmd = "TodoTrouble",
     event = "BufRead",
