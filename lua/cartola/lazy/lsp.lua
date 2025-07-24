@@ -1,10 +1,5 @@
 return {
     "neovim/nvim-lspconfig",
-    dependencies = {
-        { "mason-org/mason.nvim", opts = {} },
-        { "j-hui/fidget.nvim",    opts = {} },
-        { 'saghen/blink.cmp' }
-    },
     config = function()
         vim.api.nvim_create_autocmd("User", {
             pattern = "ConfigChange",
