@@ -1,5 +1,8 @@
 return {
     "neovim/nvim-lspconfig",
+    dependencies = {
+        { "mason-org/mason.nvim", opts = {} }
+    },
     config = function()
         vim.api.nvim_create_autocmd("User", {
             pattern = "ConfigChange",

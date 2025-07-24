@@ -4,7 +4,7 @@ return {
     "folke/trouble.nvim",
     tag = "v3.7.1",
     cmd = "Trouble",
-    lazy = false,
+    lazy = true,
     keys = {
         { "<leader>[t", function() require("trouble").next({ skip_groups = true, jump = true }) end,     desc = "[t]rouble: [t]oggle list" },
         { "<leader>]t", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "[t]rouble: [t]oggle list" },
@@ -50,6 +50,7 @@ return {
         }
     },
     config = function(_, opts)
+        -- TODO: resolver: The same file is required with different names
         require("trouble").setup(opts)
 
         vim.api.nvim_create_autocmd("BufRead", {
