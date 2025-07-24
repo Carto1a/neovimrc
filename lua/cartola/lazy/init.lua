@@ -32,13 +32,13 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-context",
         lazy = true,
-        event = "BufRead",
+        event = "BufReadPost",
         opts = {}
     },
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
         lazy = true,
-        event = "BufReadPre",
+        event = "BufReadPost",
         opts = {
             enable_autocmd = false
         },
