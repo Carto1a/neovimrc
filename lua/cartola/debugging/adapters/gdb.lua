@@ -1,5 +1,5 @@
 
-print(vim.fn.exepath("gdb"))
+-- print(vim.fn.exepath("gdb"))
 
 -- require("dap").adapters.gdb = {
 --     type = "executable",

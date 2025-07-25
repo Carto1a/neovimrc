@@ -1,7 +1,10 @@
 return {
     'mfussenegger/nvim-dap',
     dependencies = {
-        "williamboman/mason.nvim",
+        "igorlfs/nvim-dap-view",
+        ---@module 'dap-view'
+        ---@type dapview.Config
+        opts = { auto_toggle = true, },
     },
     keys = {
         { "<leader>d",  "",                                                                                   desc = "+debug", },
@@ -32,7 +35,6 @@ return {
     },
     lazy = true,
     config = function()
-        local mason_registry = require('mason-registry')
         local dap = require("dap")
 
         dap.set_log_level('trace')
@@ -54,24 +56,15 @@ return {
             )
         end
 
-        -- dap.defaults.fallback.external_terminal = {
-        --     command = '/usr/bin/kitty',
-        --     args = { '-e' },
-        -- }
-
-        -- dap.defaults.fallback.force_external_terminal = true
-        --
-
-
-        vim.api.nvim_create_user_command('DapListBreakpoints', function(opts)
+        vim.api.nvim_create_user_command('DapListBreakpoints', function()
             require("dap").list_breakpoints(true)
             print(vim.inspect(require("dap").list_breakpoints()))
         end, {
             nargs = 0,
         })
 
-
-        require("cartola.debugging.dotnet")
+        vim.cmd("runtime! /lua/cartola/debugging/adapters/*.lua")
+        vim.cmd("runtime! /lua/cartola/debugging/configurations/*.lua")
 
         dap.configurations.c = {
             {
