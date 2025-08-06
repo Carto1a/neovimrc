@@ -1,12 +1,3 @@
 {
-  "config": true,
-  "lspconfig": {
-    "lua_ls": {
-      "enabled": true,
-      "vim": {
-        "enabled": true,
-        "plugins": [ "gitsigns.nvim", "nvim-dap" ]
-      }
-    }
-  }
+  "a": true
 }

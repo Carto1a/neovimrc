@@ -1,5 +1,4 @@
 {
-  "config": true,
   "lspconfig": {
     "lua_ls": {
       "enabled": true,

@@ -1,17 +1,29 @@
+-- NOTE: ta feio, refatorar 
+
+if vim.g.PROFILE == nil then return end
+
+local config_name = "nvim_config.json"
+
+---@type fun(err: string|nil, filename: string, events: uv.fs_event_start.callback.events)
+local on_change = nil
+
 local M = {
-    file_name = "config.json",
-    config_path = nil,
+    project = {
+        path = vim.fn.expand("." .. config_name),
+        event_handler = nil
+    },
+
+    global = {
+        configuration = {},
+        path = vim.fs.joinpath(vim.g.PATH.NVIM_CONFIG, "lua", vim.g.PROFILE, "profile.json"),
+        event_handler = nil
+    },
+
     configuration = nil,
-    notify = true,
-    decoder = vim.json.decode
 }
 
-local function decode(data)
-    if not M.decoder then return end
-    M.configuration = M.decoder(data)
-end
-
 local function readfile(filepath)
+    print(filepath)
     local fd = vim.uv.fs_open(filepath, 'r', 400)
     assert(fd)
     local stat = vim.uv.fs_fstat(fd)
@@ -25,44 +37,47 @@ local function readfile(filepath)
     return data
 end
 
-local function notify(msg, level)
-    if M.notify then vim.notify(msg, level or vim.log.levels.WARN) end
+local function on_change_global()
+    local configuration = vim.json.decode(readfile(M.global.path))
+
+    if M.global.event_handler == nil then return end
+
+    M.global.event_handler:stop()
+    M.global.event_handler:start(M.global.path, {}, on_change)
+
+    M.global.configuration = configuration
 end
 
-local function on_change(err, fname, status)
+local function on_change_project()
+    local configuration = vim.json.decode(readfile(M.project.path))
+
+    M.configuration = vim.tbl_deep_extend("force", configuration, M.global.configuration)
+
+    if M.project.event_handler == nil then return end
+
+    M.project.event_handler:stop()
+    M.project.event_handler:start(M.project.path, {}, on_change)
+end
+
+on_change = function(err, fname, status)
     if err then
         vim.notify(err, vim.log.levels.ERROR)
         return
     end
 
+    if not status.change then return end
+
     print("on_change")
-    decode(readfile(M.config_path))
-    if status.change then
-        if M.event_handler then
-            M.event_handler:stop()
-            M.event_handler:start(M.config_path, {}, on_change)
-        end
 
-        vim.schedule(function()
-            vim.api.nvim_exec_autocmds('User', { pattern = 'ConfigChange' })
-        end)
-    end
-end
-
-function M.setup(setup_args)
-    M.config_path = vim.fn.expand("./.config.json")
-
-    if not vim.uv.fs_stat(M.config_path) then
-        return
+    if fname == "profile.json" then
+        on_change_global()
+    else
+        on_change_project()
     end
 
-    -- TODO: check for fail
-    M.event_handler = vim.uv.new_fs_event()
-
-    decode(readfile(M.config_path))
-
-    -- TODO: check for fail
-    M.event_handler:start(M.config_path, {}, on_change)
+    vim.schedule(function()
+        vim.api.nvim_exec_autocmds('User', { pattern = 'ConfigChange' })
+    end)
 end
 
 function M.get(key)
@@ -85,5 +100,42 @@ function M.get(key)
         end
     end
 end
+
+local function initalize_configuration(fname)
+    if not vim.uv.fs_stat(fname) then return nil, nil, "file not exist" end
+
+    local event_handler, err = vim.uv.new_fs_event()
+    if err then return nil, nil, err end
+
+    local configuration = vim.json.decode(readfile(fname))
+
+    return configuration, event_handler, nil
+end
+
+local function initalize_global()
+    local configuration, event_handler, err = initalize_configuration(M.global.path)
+    if err then return end
+    if event_handler == nil then return end
+
+    M.global.configuration = configuration
+    M.global.event_handler = event_handler
+    M.configuration = configuration
+
+    event_handler:start(M.global.path, {}, on_change)
+end
+
+local function initalize_project()
+    local configuration, event_handler, err = initalize_configuration(M.project.path)
+    if err then return end
+    if event_handler == nil then return end
+
+    M.configuration = vim.tbl_deep_extend("force", configuration, M.global.configuration)
+    M.project.event_handler = event_handler
+
+    event_handler:start(M.project.path, {}, on_change)
+end
+
+initalize_global()
+initalize_project()
 
 return M
