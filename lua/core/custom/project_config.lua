@@ -23,7 +23,6 @@ local M = {
 }
 
 local function readfile(filepath)
-    print(filepath)
     local fd = vim.uv.fs_open(filepath, 'r', 400)
     assert(fd)
     local stat = vim.uv.fs_fstat(fd)

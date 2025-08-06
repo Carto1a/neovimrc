@@ -1,4 +1,6 @@
-require("core.custom.project_config").setup({})
+vim.g.PROFILE = "cartola"
+
+require("core.custom.project_config")
 require("cartola.set")
 require("cartola.auto")
 require("cartola.maps")
@@ -15,5 +17,4 @@ vim.filetype.get_option = function(filetype, option)
         or get_option(filetype, option)
 end
 
-vim.g.PROFILE = "cartola"
 vim.o.runtimepath = vim.o.runtimepath .. "," .. vim.g.PATH.NVIM_CONFIG .. "/lua/cartola/runtime"
