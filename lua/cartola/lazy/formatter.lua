@@ -1,15 +1,21 @@
+local config = require("core.custom.project_config")
+
+local format_after_save = nil
+if config.get("format_after_save") or false then
+    format_after_save = {
+        timeout_ms = 1500,
+        lsp_format = "fallback",
+        async = true,
+    }
+end
+
 return {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = "ConformInfo",
     lazy = true,
-    opts =
-    {
-        -- format_after_save = {
-        --     timeout_ms = 1500,
-        --     lsp_format = "fallback",
-        --     async = true,
-        -- },
+    opts = {
+        format_after_save = format_after_save,
         formatters_by_ft = {
             lua = { "stylua" },
             -- Conform will run multiple formatters sequentially
