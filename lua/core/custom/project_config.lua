@@ -9,6 +9,7 @@ local on_change = nil
 
 local M = {
     project = {
+        configuration = {},
         path = vim.fn.expand("." .. config_name),
         event_handler = nil
     },
@@ -21,6 +22,10 @@ local M = {
 
     configuration = nil,
 }
+
+local function setup_configuration(g_configuration, configuration)
+    return vim.tbl_deep_extend("force", g_configuration or {}, configuration or {})
+end
 
 local function readfile(filepath)
     local fd = vim.uv.fs_open(filepath, 'r', 400)
@@ -41,8 +46,11 @@ local function on_change_global()
 
     if M.global.event_handler == nil then return end
 
-    M.global.event_handler:stop()
-    M.global.event_handler:start(M.global.path, {}, on_change)
+    M.configuration = setup_configuration(configuration, M.project.configuration)
+    local ok, error, error_name = M.global.event_handler:stop()
+
+    M.global.event_handler = vim.uv.new_fs_event()
+    local ok, error, error_name = M.global.event_handler:start(M.global.path, {}, on_change)
 
     M.global.configuration = configuration
 end
@@ -50,12 +58,15 @@ end
 local function on_change_project()
     local configuration = vim.json.decode(readfile(M.project.path))
 
-    M.configuration = vim.tbl_deep_extend("force", configuration, M.global.configuration)
-
+    M.project.configuration = configuration
     if M.project.event_handler == nil then return end
 
-    M.project.event_handler:stop()
-    M.project.event_handler:start(M.project.path, {}, on_change)
+    M.configuration = setup_configuration(M.global.configuration, configuration)
+
+    local ok, error, error_name = M.project.event_handler:stop()
+
+    M.project.event_handler = vim.uv.new_fs_event()
+    local ok, error, error_name = M.project.event_handler:start(M.project.path, {}, on_change)
 end
 
 on_change = function(err, fname, status)
@@ -118,7 +129,8 @@ local function initalize_global()
 
     M.global.configuration = configuration
     M.global.event_handler = event_handler
-    M.configuration = configuration
+
+    M.configuration = setup_configuration(configuration, M.project.configuration)
 
     event_handler:start(M.global.path, {}, on_change)
 end
@@ -128,8 +140,9 @@ local function initalize_project()
     if err then return end
     if event_handler == nil then return end
 
-    M.configuration = vim.tbl_deep_extend("force", configuration, M.global.configuration)
+    M.project.configuration = configuration
     M.project.event_handler = event_handler
+    M.configuration = setup_configuration(M.global.configuration, configuration)
 
     event_handler:start(M.project.path, {}, on_change)
 end

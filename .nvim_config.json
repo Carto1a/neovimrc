@@ -1,9 +1,11 @@
 {
+  "format_after_save": true,
   "lspconfig": {
+    "enableds": ["lua_ls", "ts_ls", "gopls", "roslyn_ls", "jsonls"],
     "lua_ls": {
       "vim": {
         "enabled": true,
-        "plugins": [ "gitsigns.nvim", "nvim-dap" ]
+        "plugins": []
       }
     }
   }
