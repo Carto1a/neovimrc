@@ -1,17 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
 
-autocmd("VimEnter", {
-    pattern = "*",
-    callback = function()
-        local current_path = vim.fn.expand("%")
-        if vim.fn.isdirectory(current_path) == 1 then
-            vim.fn.chdir(current_path)
-        else
-            vim.fn.chdir(vim.fn.expand("%:h"))
-        end
-    end
-})
-
 autocmd('LspAttach', {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
