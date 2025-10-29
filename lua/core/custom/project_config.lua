@@ -1,4 +1,4 @@
--- NOTE: ta feio, refatorar 
+-- NOTE: ta feio, refatorar
 
 if vim.g.PROFILE == nil then return end
 

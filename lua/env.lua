@@ -10,3 +10,5 @@ vim.g.PATH = {
     NVIM_DATA = vim.fn.stdpath('data'),
     NVIM_CONFIG = vim.fn.stdpath('config')
 }
+
+vim.env.NVIM = "nvim"
