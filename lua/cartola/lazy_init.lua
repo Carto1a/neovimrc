@@ -17,4 +17,11 @@ require("lazy").setup("cartola.lazy", {
         enabled = true,
         notify = false,
     },
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "netrwPlugin"
+            }
+        }
+    }
 })
