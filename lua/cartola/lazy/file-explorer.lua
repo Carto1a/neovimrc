@@ -66,7 +66,15 @@ return {
 
         local map = vim.keymap.set
         map("n", "<leader>pv", function()
-            float.toggle(vim.uv.cwd())
+            local buf = 0
+            local buftype = vim.bo[buf].buftype
+
+            local is_virtual = buftype ~= ""
+
+            local dir = nil
+            if is_virtual then dir = vim.uv.cwd() end
+
+            float.toggle(dir)
         end)
     end
 }
