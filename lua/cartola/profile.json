@@ -1,5 +1,13 @@
 {
   "lspconfig": {
-    "enableds": ["lua_ls", "ts_ls", "gopls", "roslyn_ls", "jsonls", "vue_ls"]
+    "enableds": [
+      "lua_ls",
+      "ts_ls",
+      "gopls",
+      "roslyn_ls",
+      "jsonls",
+      "vue_ls",
+      "jdtls"
+    ]
   }
 }
