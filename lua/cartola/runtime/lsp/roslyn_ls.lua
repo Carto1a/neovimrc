@@ -3,15 +3,21 @@ local roslyn = require("core.roslyn")
 local server_name = "roslyn_ls"
 
 local settings = util.get_servers_settings(server_name)
+---@type vim.lsp.Config
 local configuration = settings.internal or {}
 
-
 configuration.root_dir = function(bufnr, on_dir)
+    if vim.g.roslyn_nvim_selected_solution then
+        local root_dir = vim.fs.dirname(vim.g.roslyn_nvim_selected_solution)
+        on_dir(root_dir)
+        return
+    end
+
     local buf_name = vim.api.nvim_buf_get_name(bufnr)
 
     -- For source-generated files, use the root_dir from the existing client
     if buf_name:match("^roslyn%-source%-generated://") then
-        local existing_client = vim.lsp.get_clients({ name = "roslyn" })[1]
+        local existing_client = vim.lsp.get_clients({ name = "roslyn_ls" })[1]
         if existing_client and existing_client.config.root_dir then
             on_dir(existing_client.config.root_dir)
             return
@@ -24,7 +30,13 @@ configuration.root_dir = function(bufnr, on_dir)
     on_dir(root_dir)
 end
 
+configuration.on_attach = function()
+    require("core.roslyn.user_commands").create_roslyn_commands()
+end
+
 configuration.on_init = function(client)
+    client.server_capabilities.renameProvider = true
+
     if not client.config.root_dir then
         return
     end
@@ -57,8 +69,9 @@ end
 configuration.on_exit = function()
     vim.g.roslyn_nvim_selected_solution = nil
     vim.schedule(function()
-        -- require("roslyn.roslyn_emitter"):emit("stopped")
+        require("core.roslyn.emitter").emit("stopped")
         vim.notify("Roslyn server stopped", vim.log.levels.INFO, { title = "roslyn.nvim" })
+        vim.api.nvim_del_user_command(require("core.roslyn.user_commands").cmd_name)
     end)
 end
 

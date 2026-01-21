@@ -1,12 +1,12 @@
-local roslyn_emitter = require("roslyn.roslyn_emitter")
+local roslyn_emitter = require("core.roslyn.emitter")
 -- from: https://github.com/seblyng/roslyn.nvim - 0c4a6f5b64122b51a64e0c8f7aae140ec979690e
 
 -- Huge credits to mrcjkb
 -- https://github.com/mrcjkb/rustaceanvim/blob/2fa45427c01ded4d3ecca72e357f8a60fd8e46d4/lua/rustaceanvim/commands/init.lua
 
-local M = {}
-
-local cmd_name = "Roslyn"
+local M = {
+    cmd_name = "Roslyn"
+}
 
 ---@param fun function
 local on_stopped = function(fun)
@@ -20,7 +20,7 @@ local on_stopped = function(fun)
         end
     end
 
-    remove_listener = roslyn_emitter:on("stopped", _fun)
+    remove_listener = roslyn_emitter.on("stopped", _fun)
 end
 
 ---@class RoslynSubcommandTable
@@ -32,22 +32,20 @@ local subcommand_tbl = {
     target = {
         impl = function()
             local bufnr = vim.api.nvim_get_current_buf()
-            local utils = require("roslyn.sln.utils")
-            local broad_search = require("roslyn.config").get().broad_search
-            local targets = broad_search and utils.find_solutions_broad(bufnr) or utils.find_solutions(bufnr)
+            local targets = require("core.roslyn").find_solutions_broad(bufnr)
             vim.ui.select(targets or {}, { prompt = "Select target solution: " }, function(file)
                 if not file then
                     return
                 end
 
-                local config = vim.tbl_deep_extend("force", vim.lsp.config["roslyn"], {
+                local config = vim.tbl_deep_extend("force", vim.lsp.config["roslyn_ls"], {
                     root_dir = vim.fs.dirname(file),
                     on_init = function(client)
-                        require("roslyn.lsp.on_init").sln(client, file)
+                        require("core.roslyn").sln(client, file)
                     end,
                 })
 
-                local client = vim.lsp.get_clients({ name = "roslyn" })[1]
+                local client = vim.lsp.get_clients({ name = "roslyn_ls" })[1]
                 if not client then
                     vim.lsp.start(config)
                     return
@@ -76,23 +74,23 @@ local function roslyn(opts)
         return
     end
 
-    vim.notify(cmd_name .. ": Unknown subcommand: " .. cmd, vim.log.levels.ERROR, { title = "roslyn.nvim" })
+    vim.notify(M.cmd_name .. ": Unknown subcommand: " .. cmd, vim.log.levels.ERROR, { title = "roslyn.nvim" })
 end
 
 function M.create_roslyn_commands()
-    vim.api.nvim_create_user_command(cmd_name, roslyn, {
+    vim.api.nvim_create_user_command(M.cmd_name, roslyn, {
         nargs = "+",
         range = true,
         desc = "Interacts with Roslyn",
         complete = function(arg_lead, cmdline, _)
             local all_commands = vim.tbl_keys(subcommand_tbl)
 
-            local subcmd, subcmd_arg_lead = cmdline:match("^" .. cmd_name .. "[!]*%s(%S+)%s(.*)$")
+            local subcmd, subcmd_arg_lead = cmdline:match("^" .. M.cmd_name .. "[!]*%s(%S+)%s(.*)$")
             if subcmd and subcmd_arg_lead and subcommand_tbl[subcmd] and subcommand_tbl[subcmd].complete then
                 return subcommand_tbl[subcmd].complete(subcmd_arg_lead)
             end
 
-            if cmdline:match("^" .. cmd_name .. "[!]*%s+%w*$") then
+            if cmdline:match("^" .. M.cmd_name .. "[!]*%s+%w*$") then
                 return vim.tbl_filter(function(command)
                     return command:find(arg_lead) ~= nil
                 end, all_commands)

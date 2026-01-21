@@ -143,24 +143,12 @@ function M.root_dir(bufnr, solutions, preselected_sln)
 
     local filtered_targets = filter_targets(solutions, csproj)
     if #filtered_targets > 1 then
-        local config = require("roslyn.config").get()
-        local chosen = config.choose_target and config.choose_target(filtered_targets)
-        if chosen then
-            local result = vim.fs.dirname(chosen)
-            return result
-        else
-            if preselected_sln and vim.list_contains(filtered_targets, preselected_sln) then
-                local result = vim.fs.dirname(preselected_sln)
-                return result
-            end
-
-            vim.notify(
-                "Multiple potential target files found. Use `:Roslyn target` to select a target.",
-                vim.log.levels.INFO,
-                { title = "roslyn.nvim" }
-            )
-            return nil
-        end
+        vim.notify(
+            "Multiple potential target files found. Use `:Roslyn target` to select a target.",
+            vim.log.levels.INFO,
+            { title = "roslyn.nvim" }
+        )
+        return nil
     else
         local selected_solution = vim.g.roslyn_nvim_selected_solution
         local result = vim.fs.dirname(filtered_targets[1])
