@@ -1,9 +1,8 @@
 return {
     'nvim-treesitter/nvim-treesitter',
     build = ":TSUpdate",
-    tag = 'v0.10.0',
-    lazy = true,
-    event = "BufRead",
+    lazy = false,
+    enabled = false,
     opts = {
         ensure_installed = {
             "c",

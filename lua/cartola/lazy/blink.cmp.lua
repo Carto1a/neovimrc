@@ -1,12 +1,16 @@
 return {
     'saghen/blink.cmp',
-    build = 'cargo build --release',
     dependencies = {
-        'L3MON4D3/LuaSnip'
+        'L3MON4D3/LuaSnip',
+        'saghen/blink.lib'
     },
 
     lazy = true,
     event = { "InsertEnter", "CmdlineEnter" },
+
+    build = function()
+        require('blink.cmp').build():wait(60000)
+    end,
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
