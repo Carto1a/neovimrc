@@ -13,11 +13,11 @@ local vsdbg_configuration = {
         linesStartAt1 = true,
         locale = "en",
         pathFormat = "path",
-        console = "externalTerminal"
+        console = "externalTerminal",
         -- externalConsole = true
         -- stopAtEntry = true
         -- console = "externalTerminal"
-    }
+    },
 }
 
 require("dap").configurations.cs = vsdbg_configuration

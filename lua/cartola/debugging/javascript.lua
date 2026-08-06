@@ -12,12 +12,9 @@
 --     }
 -- }
 
-
-
 -- local vscode_dap = mason_registry.get_package('js-debug-adapter')
 --     :get_install_path() ..
 --     '/js-debug/src/dapDebugServer.js'
-
 
 -- dap.configurations.javascript = {
 --     {

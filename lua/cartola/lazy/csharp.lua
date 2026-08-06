@@ -2,7 +2,7 @@ return {
     "Hoffs/omnisharp-extended-lsp.nvim",
     enabled = false,
     dependencies = {
-        'nvim-lua/plenary.nvim'
+        "nvim-lua/plenary.nvim",
     },
-    lazy = true
+    lazy = true,
 }

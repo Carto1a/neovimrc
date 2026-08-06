@@ -21,11 +21,11 @@ function M.godot_toggle_server(pipe_path)
     end
 end
 
-vim.api.nvim_create_user_command('GodotServer', function(opts)
+vim.api.nvim_create_user_command("GodotServer", function(opts)
     M.godot_toggle_server(opts.fargs[1])
 end, {
     nargs = "?",
-    complete = "file"
+    complete = "file",
 })
 
 return M

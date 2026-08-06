@@ -3,7 +3,7 @@ require("dap").configurations.go = {
         type = "delve",
         name = "Debug",
         request = "launch",
-        program = "${workspaceFolder}"
+        program = "${workspaceFolder}",
     },
     -- {
     --     type = "delve",

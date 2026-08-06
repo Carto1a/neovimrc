@@ -1,6 +1,6 @@
 local M = {
     handlers = {},
-    commands = {}
+    commands = {},
 }
 
 -- from: https://github.com/seblyng/roslyn.nvim - 0c4a6f5b64122b51a64e0c8f7aae140ec979690e

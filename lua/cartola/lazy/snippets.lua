@@ -5,14 +5,35 @@ return {
         commit = "6cd7280",
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
-        end
+        end,
     },
     tag = "v2.5.0",
     build = "make install_jsregexp",
     keys = {
-        { mode = { "i" },      "<C-K>", function() require("luasnip").expand() end, desc = "luasnip: expand [K]ey (expand snippet)" },
-        { mode = { "i", "s" }, "<C-L>", function() require("luasnip").jump(1) end,  desc = "luasnip: next entry" },
-        { mode = { "i", "s" }, "<C-H>", function() require("luasnip").jump(-1) end, desc = "luasnip: previus entry" },
+        {
+            mode = { "i" },
+            "<C-K>",
+            function()
+                require("luasnip").expand()
+            end,
+            desc = "luasnip: expand [K]ey (expand snippet)",
+        },
+        {
+            mode = { "i", "s" },
+            "<C-L>",
+            function()
+                require("luasnip").jump(1)
+            end,
+            desc = "luasnip: next entry",
+        },
+        {
+            mode = { "i", "s" },
+            "<C-H>",
+            function()
+                require("luasnip").jump(-1)
+            end,
+            desc = "luasnip: previus entry",
+        },
         {
             mode = { "i", "s" },
             "<C-E>",
@@ -21,8 +42,8 @@ return {
                     require("luasnip").change_choice(1)
                 end
             end,
-            desc = "luasnip: next [E]xpandable choice"
-        }
+            desc = "luasnip: next [E]xpandable choice",
+        },
     },
-    lazy = true
+    lazy = true,
 }

@@ -1,6 +1,6 @@
 local dap = require("dap")
-local dap_utils = require('dap.utils')
-local rpc = require('dap.rpc')
+local dap_utils = require("dap.utils")
+local rpc = require("dap.rpc")
 
 -- vsdbg certification
 local function send_payload(client, payload)
@@ -11,16 +11,20 @@ end
 function RunHandshake(self, request_payload)
     local signjs = vim.g.PATH.NVIM_CONFIG .. "/lua/" .. vim.g.PROFILE .. "/debugging" .. "/vsdbgsignature.js"
 
-    local signResult = io.popen("node " ..
-        signjs ..
-        " \"C:\\Users\\cepleite\\AppData\\Local\\Programs\\Microsoft VS Code\"" .. " " .. request_payload.arguments.value)
+    local signResult = io.popen(
+        "node "
+            .. signjs
+            .. ' "C:\\Users\\cepleite\\AppData\\Local\\Programs\\Microsoft VS Code"'
+            .. " "
+            .. request_payload.arguments.value
+    )
     if signResult == nil then
-        dap_utils.notify('error while signing handshake', vim.log.levels.ERROR)
+        dap_utils.notify("error while signing handshake", vim.log.levels.ERROR)
         return
     end
 
     local signature = signResult:read("*a")
-    signature = signature:gsub('\n', ''):gsub("\"", "")
+    signature = signature:gsub("\n", ""):gsub('"', "")
     local response = {
         type = "response",
         seq = 0,
@@ -28,22 +32,22 @@ function RunHandshake(self, request_payload)
         request_seq = request_payload.seq,
         success = true,
         body = {
-            signature = signature
-        }
+            signature = signature,
+        },
     }
     send_payload(self.client, response)
 end
 
-local vsdbg_path = vim.g.PATH.HOME ..
-    "/.vscode/extensions/ms-dotnettools.csharp-2.80.16-win32-x64/.debugger/x86_64/vsdbg.exe"
+local vsdbg_path = vim.g.PATH.HOME
+    .. "/.vscode/extensions/ms-dotnettools.csharp-2.80.16-win32-x64/.debugger/x86_64/vsdbg.exe"
 
 ---@class dap.ExecutableAdapter
 local vsdbg_coreclr_adapter = {
-    id = 'coreclr',
-    type = 'executable',
+    id = "coreclr",
+    type = "executable",
     command = vsdbg_path,
     args = {
-        "--interpreter=vscode"
+        "--interpreter=vscode",
         -- "--engineLogging",
         -- "--consoleLogging",
     },
@@ -52,13 +56,13 @@ local vsdbg_coreclr_adapter = {
         detached = false,
         logging = {
             moduleLoad = false,
-            trace = true
-        }
+            trace = true,
+        },
     },
     runInTerminal = true,
     reverse_request_handlers = {
-        handshake = RunHandshake
-    }
+        handshake = RunHandshake,
+    },
 }
 
 dap.adapters.coreclr = vsdbg_coreclr_adapter

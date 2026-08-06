@@ -1,6 +1,6 @@
 vim.g.PROFILE = "cartola"
 
-require('vim._core.ui2').enable()
+require("vim._core.ui2").enable()
 require("internal.project_config")
 require("cartola.set")
 require("cartola.auto")
@@ -12,8 +12,7 @@ pcall(vim.cmd.colorscheme, "rose-pine-main")
 
 local get_option = vim.filetype.get_option
 vim.filetype.get_option = function(filetype, option)
-    return option == "commentstring"
-        and require("ts_context_commentstring.internal").calculate_commentstring()
+    return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
         or get_option(filetype, option)
 end
 

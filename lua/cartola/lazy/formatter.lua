@@ -31,5 +31,5 @@ return {
             css = { "prettier", "prettierd", stop_after_first = true },
             json = { "prettier", "prettierd", stop_after_first = true },
         },
-    }
+    },
 }

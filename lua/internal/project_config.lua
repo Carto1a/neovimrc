@@ -1,6 +1,8 @@
--- NOTE: ta feio, refatorar 
+-- NOTE: ta feio, refatorar
 
-if vim.g.PROFILE == nil then return end
+if vim.g.PROFILE == nil then
+    return
+end
 
 local config_name = "nvim_config.json"
 
@@ -11,13 +13,13 @@ local M = {
     project = {
         configuration = {},
         path = vim.fn.expand("." .. config_name),
-        event_handler = nil
+        event_handler = nil,
     },
 
     global = {
         configuration = {},
         path = vim.fs.joinpath(vim.g.PATH.NVIM_CONFIG, "lua", vim.g.PROFILE, "profile.json"),
-        event_handler = nil
+        event_handler = nil,
     },
 
     configuration = nil,
@@ -28,7 +30,7 @@ local function setup_configuration(g_configuration, configuration)
 end
 
 local function readfile(filepath)
-    local fd = vim.uv.fs_open(filepath, 'r', 400)
+    local fd = vim.uv.fs_open(filepath, "r", 400)
     assert(fd)
     local stat = vim.uv.fs_fstat(fd)
     assert(stat)
@@ -44,7 +46,9 @@ end
 local function on_change_global()
     local configuration = vim.json.decode(readfile(M.global.path))
 
-    if M.global.event_handler == nil then return end
+    if M.global.event_handler == nil then
+        return
+    end
 
     M.configuration = setup_configuration(configuration, M.project.configuration)
     local ok, error, error_name = M.global.event_handler:stop()
@@ -59,7 +63,9 @@ local function on_change_project()
     local configuration = vim.json.decode(readfile(M.project.path))
 
     M.project.configuration = configuration
-    if M.project.event_handler == nil then return end
+    if M.project.event_handler == nil then
+        return
+    end
 
     M.configuration = setup_configuration(M.global.configuration, configuration)
 
@@ -75,7 +81,9 @@ on_change = function(err, fname, status)
         return
     end
 
-    if not status.change then return end
+    if not status.change then
+        return
+    end
 
     print("on_change")
 
@@ -86,7 +94,7 @@ on_change = function(err, fname, status)
     end
 
     vim.schedule(function()
-        vim.api.nvim_exec_autocmds('User', { pattern = 'ConfigChange' })
+        vim.api.nvim_exec_autocmds("User", { pattern = "ConfigChange" })
     end)
 end
 
@@ -103,7 +111,7 @@ function M.get(key)
             return configuration
         end
 
-        configuration = configuration[key_value];
+        configuration = configuration[key_value]
 
         if index >= keys_len then
             return configuration
@@ -112,10 +120,14 @@ function M.get(key)
 end
 
 local function initalize_configuration(fname)
-    if not vim.uv.fs_stat(fname) then return nil, nil, "file not exist" end
+    if not vim.uv.fs_stat(fname) then
+        return nil, nil, "file not exist"
+    end
 
     local event_handler, err = vim.uv.new_fs_event()
-    if err then return nil, nil, err end
+    if err then
+        return nil, nil, err
+    end
 
     local configuration = vim.json.decode(readfile(fname))
 
@@ -124,8 +136,12 @@ end
 
 local function initalize_global()
     local configuration, event_handler, err = initalize_configuration(M.global.path)
-    if err then return end
-    if event_handler == nil then return end
+    if err then
+        return
+    end
+    if event_handler == nil then
+        return
+    end
 
     M.global.configuration = configuration
     M.global.event_handler = event_handler
@@ -137,8 +153,12 @@ end
 
 local function initalize_project()
     local configuration, event_handler, err = initalize_configuration(M.project.path)
-    if err then return end
-    if event_handler == nil then return end
+    if err then
+        return
+    end
+    if event_handler == nil then
+        return
+    end
 
     M.project.configuration = configuration
     M.project.event_handler = event_handler

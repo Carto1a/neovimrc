@@ -2,12 +2,12 @@ return {
     "mbbill/undotree",
     lazy = true,
     enabled = false,
-    tag = 'rel_6.1',
+    tag = "rel_6.1",
     cmd = { "UndotreeToggle", "UndotreeShow" },
     keys = {
-        { "<leader>u", vim.cmd.UndotreeToggle, desc = "[u]ndotree: toggle" }
+        { "<leader>u", vim.cmd.UndotreeToggle, desc = "[u]ndotree: toggle" },
     },
     init = function()
         vim.g.undotree_SetFocusWhenToggle = true
-    end
+    end,
 }

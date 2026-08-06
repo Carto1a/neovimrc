@@ -5,7 +5,7 @@ local roslyn_emitter = require("internal.roslyn.emitter")
 -- https://github.com/mrcjkb/rustaceanvim/blob/2fa45427c01ded4d3ecca72e357f8a60fd8e46d4/lua/rustaceanvim/commands/init.lua
 
 local M = {
-    cmd_name = "Roslyn"
+    cmd_name = "Roslyn",
 }
 
 ---@param fun function

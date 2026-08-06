@@ -2,67 +2,67 @@ return {
     "tamago324/lir.nvim",
     dependencies = {
         { "nvim-lua/plenary.nvim", commit = "74b06c6" },
-        "nvim-tree/nvim-web-devicons"
+        "nvim-tree/nvim-web-devicons",
     },
 
     pin = true,
     commit = "f1291b8",
 
     opts = function()
-        local actions = require('lir.actions')
-        local mark_actions = require('lir.mark.actions')
-        local clipboard_actions = require('lir.clipboard.actions')
+        local actions = require("lir.actions")
+        local mark_actions = require("lir.mark.actions")
+        local clipboard_actions = require("lir.clipboard.actions")
 
         local mappings = {
-            ['l']     = actions.edit,
-            ['h']     = actions.up,
+            ["l"] = actions.edit,
+            ["h"] = actions.up,
 
-            ['<cr>']  = actions.edit,
+            ["<cr>"] = actions.edit,
 
-            ['<C-s>'] = actions.split,
-            ['<C-v>'] = actions.vsplit,
-            ['<C-t>'] = actions.tabedit,
+            ["<C-s>"] = actions.split,
+            ["<C-v>"] = actions.vsplit,
+            ["<C-t>"] = actions.tabedit,
 
-            ['q']     = actions.quit,
+            ["q"] = actions.quit,
 
-            ['K']     = actions.mkdir,
-            ['N']     = actions.newfile,
-            ['R']     = actions.rename,
-            ['@']     = actions.cd,
-            ['Y']     = actions.yank_path,
-            ['.']     = actions.toggle_show_hidden,
-            ['D']     = actions.delete,
+            ["K"] = actions.mkdir,
+            ["N"] = actions.newfile,
+            ["R"] = actions.rename,
+            ["@"] = actions.cd,
+            ["Y"] = actions.yank_path,
+            ["."] = actions.toggle_show_hidden,
+            ["D"] = actions.delete,
 
-            ['J']     = function()
+            ["J"] = function()
                 mark_actions.toggle_mark("n")
-                vim.api.nvim_feedkeys('j', 'n', false)
+                vim.api.nvim_feedkeys("j", "n", false)
             end,
-            ['C']     = clipboard_actions.copy,
-            ['X']     = clipboard_actions.cut,
-            ['P']     = clipboard_actions.paste,
+            ["C"] = clipboard_actions.copy,
+            ["X"] = clipboard_actions.cut,
+            ["P"] = clipboard_actions.paste,
         }
         return {
             show_hidden_files = false,
             ignore = {}, -- { ".DS_Store", "node_modules" } etc.
             devicons = {
                 enable = true,
-                highlight_dirname = true
+                highlight_dirname = true,
             },
             mappings = mappings,
             float = {
                 winblend = 0,
                 curdir_window = {
                     enable = false,
-                    highlight_dirname = false
+                    highlight_dirname = false,
                 },
             },
-            hide_cursor = true
+            hide_cursor = true,
         }
     end,
 
     config = function(_, opts)
         require("lir").setup(opts)
-        local float = require('lir.float')
+        local float = require("lir.float")
 
         local map = vim.keymap.set
         map("n", "<leader>pv", function()
@@ -72,9 +72,11 @@ return {
             local is_virtual = buftype ~= ""
 
             local dir = nil
-            if is_virtual then dir = vim.uv.cwd() end
+            if is_virtual then
+                dir = vim.uv.cwd()
+            end
 
             float.toggle(dir)
         end)
-    end
+    end,
 }

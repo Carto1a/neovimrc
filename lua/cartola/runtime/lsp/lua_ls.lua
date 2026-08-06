@@ -9,20 +9,20 @@ if settings.vim and settings.vim.enabled then
         settings = {
             Lua = {
                 runtime = {
-                    version = 'LuaJIT',
+                    version = "LuaJIT",
                 },
                 workspace = {
                     library = {
                         vim.env.VIMRUNTIME,
-                        "${3rd}/luv/library"
-                    }
-                }
-            }
+                        "${3rd}/luv/library",
+                    },
+                },
+            },
         },
     }
 
     if settings.vim.plugins ~= nil then
-        local lib_path_table = vim_configuration.settings.Lua.workspace.library;
+        local lib_path_table = vim_configuration.settings.Lua.workspace.library
         local lazy_plugin_path = vim.fn.stdpath("data") .. "/lazy/"
 
         for _, value in pairs(settings.vim.plugins) do
@@ -31,11 +31,7 @@ if settings.vim and settings.vim.enabled then
         end
     end
 
-    configuration = vim.tbl_deep_extend(
-        "force",
-        configuration,
-        vim_configuration
-    )
+    configuration = vim.tbl_deep_extend("force", configuration, vim_configuration)
 end
 
 return configuration

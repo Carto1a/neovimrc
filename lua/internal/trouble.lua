@@ -1,5 +1,5 @@
 local M = {
-    last_mode = "diagnostics_buffer"
+    last_mode = "diagnostics_buffer",
 }
 
 function M.open_menu(mode)

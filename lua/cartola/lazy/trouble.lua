@@ -7,18 +7,78 @@ return {
     cmd = "Trouble",
     lazy = true,
     keys = {
-        { "<leader>[t", function() require("trouble").next({ skip_groups = true, jump = true }) end,     desc = "[t]rouble: [t]oggle list" },
-        { "<leader>]t", function() require("trouble").previous({ skip_groups = true, jump = true }) end, desc = "[t]rouble: [t]oggle list" },
+        {
+            "<leader>[t",
+            function()
+                require("trouble").next({ skip_groups = true, jump = true })
+            end,
+            desc = "[t]rouble: [t]oggle list",
+        },
+        {
+            "<leader>]t",
+            function()
+                require("trouble").previous({ skip_groups = true, jump = true })
+            end,
+            desc = "[t]rouble: [t]oggle list",
+        },
 
-        { "<leader>tt", function() open_menu() end,                                                      desc = "[t]rouble: [t]oggle list" },
-        { "<leader>tw", function() open_menu("diagnostics") end,                                         desc = "[t]rouble: [w]orkspace diagnostics list" },
-        { "<leader>td", function() open_menu("diagnostics_buffer") end,                                  desc = "[t]rouble: buffer [d]iagnostics list" },
-        { "<leader>tq", function() open_menu("quickfix") end,                                            desc = "[t]rouble: [q]uickfix list" },
-        { "<leader>tl", function() open_menu("loclist") end,                                             desc = "[t]rouble: [l]ocation list" },
+        {
+            "<leader>tt",
+            function()
+                open_menu()
+            end,
+            desc = "[t]rouble: [t]oggle list",
+        },
+        {
+            "<leader>tw",
+            function()
+                open_menu("diagnostics")
+            end,
+            desc = "[t]rouble: [w]orkspace diagnostics list",
+        },
+        {
+            "<leader>td",
+            function()
+                open_menu("diagnostics_buffer")
+            end,
+            desc = "[t]rouble: buffer [d]iagnostics list",
+        },
+        {
+            "<leader>tq",
+            function()
+                open_menu("quickfix")
+            end,
+            desc = "[t]rouble: [q]uickfix list",
+        },
+        {
+            "<leader>tl",
+            function()
+                open_menu("loclist")
+            end,
+            desc = "[t]rouble: [l]ocation list",
+        },
 
-        { "gr",         function() open_menu("lsp_references") end,                                      desc = "trouble: [g]o to [r]eferences" },
-        { "gd",         function() open_menu("lsp_definitions") end,                                     desc = "trouble: [g]o to [d]efinition" },
-        { "gi",         function() open_menu("lsp_implementations") end,                                 desc = "trouble: [g]o to [i]mplementation" },
+        {
+            "gr",
+            function()
+                open_menu("lsp_references")
+            end,
+            desc = "trouble: [g]o to [r]eferences",
+        },
+        {
+            "gd",
+            function()
+                open_menu("lsp_definitions")
+            end,
+            desc = "trouble: [g]o to [d]efinition",
+        },
+        {
+            "gi",
+            function()
+                open_menu("lsp_implementations")
+            end,
+            desc = "trouble: [g]o to [i]mplementation",
+        },
     },
     opts = {
         modes = {
@@ -39,7 +99,7 @@ return {
                     -- -- NOTE: uma boa ideia?
                     -- { event = "TextChanged", main = true },
                     -- { event = "LspAttach",   main = true },
-                }
+                },
             },
             diagnostics_buffer = {
                 mode = "diagnostics",
@@ -47,8 +107,8 @@ return {
                 groups = {
                     { "filename", format = "{file_icon} {basename:Title} {count}" },
                 },
-            }
-        }
+            },
+        },
     },
     config = function(_, opts)
         -- TODO: resolver: The same file is required with different names
@@ -56,7 +116,9 @@ return {
 
         vim.api.nvim_create_autocmd("BufRead", {
             callback = function(args)
-                if vim.bo[args.buf].buftype ~= "quickfix" then return end
+                if vim.bo[args.buf].buftype ~= "quickfix" then
+                    return
+                end
 
                 vim.schedule(function()
                     vim.cmd([[cclose]])

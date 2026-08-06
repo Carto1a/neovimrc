@@ -5,7 +5,8 @@ local settings = util.get_servers_settings(server_name)
 local configuration = settings.internal or {}
 
 if settings.vue then
-    local vue_language_server_path = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server")
+    local vue_language_server_path =
+        vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server")
 
     local vue_configuration = {
         init_options = {
@@ -14,18 +15,14 @@ if settings.vue then
                     name = "@vue/typescript-plugin",
                     location = vue_language_server_path,
                     languages = { "vue" },
-                    configNamespace = 'typescript',
-                }
-            }
+                    configNamespace = "typescript",
+                },
+            },
         },
         filetypes = { "typescript", "javascript", "vue" },
     }
 
-    configuration = vim.tbl_deep_extend(
-        "force",
-        configuration,
-        vue_configuration
-    )
+    configuration = vim.tbl_deep_extend("force", configuration, vue_configuration)
 end
 
 return configuration

@@ -1,8 +1,8 @@
 return {
-    'saghen/blink.cmp',
+    "saghen/blink.cmp",
     dependencies = {
-        'L3MON4D3/LuaSnip',
-        'saghen/blink.lib'
+        "L3MON4D3/LuaSnip",
+        "saghen/blink.lib",
     },
 
     lazy = true,
@@ -10,7 +10,7 @@ return {
     enabled = true,
 
     build = function()
-        require('blink.cmp').build():pwait()
+        require("blink.cmp").build():pwait()
     end,
 
     ---@module 'blink.cmp'
@@ -22,82 +22,86 @@ return {
                 auto_show_delay_ms = 1000,
             },
             ghost_text = {
-                enabled = true
+                enabled = true,
             },
             list = {
                 selection = {
-                    auto_insert = false
-                }
+                    auto_insert = false,
+                },
             },
             menu = {
                 draw = {
-                    columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'kind' } },
+                    columns = { { "kind_icon" }, { "label", "label_description", gap = 1 }, { "kind" } },
                     components = {
                         kind_icon = {
                             ellipsis = false,
-                            text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
-                            highlight = function(ctx) return ctx.kind_hl end,
-                        }
-                    }
-                }
-            }
+                            text = function(ctx)
+                                return ctx.kind_icon .. ctx.icon_gap
+                            end,
+                            highlight = function(ctx)
+                                return ctx.kind_hl
+                            end,
+                        },
+                    },
+                },
+            },
         },
         keymap = {
-            preset = 'none',
+            preset = "none",
 
-            ['<C-b>'] = { 'scroll_documentation_down', 'fallback' },
-            ['<C-f>'] = { 'scroll_documentation_up', 'fallback' },
-            ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-            ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
-            ["<C-p>"] = { 'select_prev', 'fallback_to_mappings' },
-            ['<c-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-            ['<c-s>'] = { 'show', 'show_documentation', 'hide_documentation' },
-            ["<C-e>"] = { 'hide' },
-            ['<CR>'] = { 'accept', 'fallback' },
+            ["<C-b>"] = { "scroll_documentation_down", "fallback" },
+            ["<C-f>"] = { "scroll_documentation_up", "fallback" },
+            ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+            ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+            ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+            ["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<c-s>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<C-e>"] = { "hide" },
+            ["<CR>"] = { "accept", "fallback" },
         },
         signature = {
-            enabled = true
+            enabled = true,
         },
         appearance = {
             use_nvim_cmp_as_default = true,
-            nerd_font_variant = 'mono'
+            nerd_font_variant = "mono",
         },
         sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
+            default = { "lsp", "path", "snippets", "buffer" },
         },
         fuzzy = { implementation = "rust" },
-        snippets = { preset = 'luasnip' },
+        snippets = { preset = "luasnip" },
 
         cmdline = {
             enabled = true,
             keymap = {
-                preset = 'none',
+                preset = "none",
 
-                ['<C-b>'] = { 'scroll_documentation_down', 'fallback' },
-                ['<C-f>'] = { 'scroll_documentation_up', 'fallback' },
-                ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-                ['<C-n>'] = { 'select_next', 'fallback_to_mappings' },
-                ["<C-p>"] = { 'select_prev', 'fallback_to_mappings' },
-                ['<c-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-                ['<tab>'] = { 'show', 'show_documentation', 'hide_documentation' },
-                ['<c-s>'] = { 'show', 'show_documentation', 'hide_documentation' },
-                ["<C-e>"] = { 'hide' },
-                ['<CR>'] = { 'accept', 'fallback' },
+                ["<C-b>"] = { "scroll_documentation_down", "fallback" },
+                ["<C-f>"] = { "scroll_documentation_up", "fallback" },
+                ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+                ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+                ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+                ["<c-space>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<tab>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<c-s>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<C-e>"] = { "hide" },
+                ["<CR>"] = { "accept", "fallback" },
             },
             completion = {
                 menu = {
-                    auto_show = false
+                    auto_show = false,
                 },
                 ghost_text = {
-                    enabled = true
+                    enabled = true,
                 },
                 list = {
                     selection = {
                         auto_insert = false,
-                        preselect = false
-                    }
-                }
+                        preselect = false,
+                    },
+                },
             },
-        }
-    }
+        },
+    },
 }

@@ -58,8 +58,7 @@ function M.Jump_to_uppercase(reverse)
     end
 
     if not SOL() and reverse then
-        local previus_line = vim.api.nvim_buf_get_lines(
-            0, row - 2, row - 1, true)[1]
+        local previus_line = vim.api.nvim_buf_get_lines(0, row - 2, row - 1, true)[1]
 
         local eol = string.len(previus_line)
         vim.api.nvim_win_set_cursor(0, { row - 1, eol })
