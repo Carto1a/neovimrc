@@ -1,6 +1,7 @@
 return {
     "mbbill/undotree",
     lazy = true,
+    enabled = false,
     tag = 'rel_6.1',
     cmd = { "UndotreeToggle", "UndotreeShow" },
     keys = {

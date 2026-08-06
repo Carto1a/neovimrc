@@ -1,4 +1,4 @@
-local roslyn_emitter = require("core.roslyn.emitter")
+local roslyn_emitter = require("internal.roslyn.emitter")
 -- from: https://github.com/seblyng/roslyn.nvim - 0c4a6f5b64122b51a64e0c8f7aae140ec979690e
 
 -- Huge credits to mrcjkb
@@ -32,7 +32,7 @@ local subcommand_tbl = {
     target = {
         impl = function()
             local bufnr = vim.api.nvim_get_current_buf()
-            local targets = require("core.roslyn").find_solutions_broad(bufnr)
+            local targets = require("internal.roslyn").find_solutions_broad(bufnr)
             vim.ui.select(targets or {}, { prompt = "Select target solution: " }, function(file)
                 if not file then
                     return
@@ -41,7 +41,7 @@ local subcommand_tbl = {
                 local config = vim.tbl_deep_extend("force", vim.lsp.config["roslyn_ls"], {
                     root_dir = vim.fs.dirname(file),
                     on_init = function(client)
-                        require("core.roslyn").sln(client, file)
+                        require("internal.roslyn").sln(client, file)
                     end,
                 })
 

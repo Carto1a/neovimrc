@@ -2,15 +2,15 @@ return {
     "L3MON4D3/LuaSnip",
     dependencies = {
         "rafamadriz/friendly-snippets",
+        commit = "6cd7280",
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
-            -- require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
         end
     },
-    tag = "v2.3.0",
+    tag = "v2.5.0",
     build = "make install_jsregexp",
     keys = {
-        { mode = { "i" },      "<C-K>", function() require("luasnip").expand() end,                  desc = "luasnip: expand [K]ey (expand snippet)" },
+        { mode = { "i" },      "<C-K>", function() require("luasnip").expand() end, desc = "luasnip: expand [K]ey (expand snippet)" },
         { mode = { "i", "s" }, "<C-L>", function() require("luasnip").jump(1) end,  desc = "luasnip: next entry" },
         { mode = { "i", "s" }, "<C-H>", function() require("luasnip").jump(-1) end, desc = "luasnip: previus entry" },
         {
@@ -24,6 +24,5 @@ return {
             desc = "luasnip: next [E]xpandable choice"
         }
     },
-    lazy = true,
-    opts = {}
+    lazy = true
 }

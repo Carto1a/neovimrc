@@ -1,5 +1,5 @@
 {
-  "format_after_save": true,
+  "format_after_save": false,
   "lspconfig": {
     "enableds": [
       "lua_ls",

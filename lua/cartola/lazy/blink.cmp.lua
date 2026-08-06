@@ -7,9 +7,10 @@ return {
 
     lazy = true,
     event = { "InsertEnter", "CmdlineEnter" },
+    enabled = true,
 
     build = function()
-        require('blink.cmp').build():wait(60000)
+        require('blink.cmp').build():pwait()
     end,
 
     ---@module 'blink.cmp'
@@ -18,7 +19,7 @@ return {
         completion = {
             documentation = {
                 auto_show = true,
-                auto_show_delay_ms = 2000,
+                auto_show_delay_ms = 1000,
             },
             ghost_text = {
                 enabled = true

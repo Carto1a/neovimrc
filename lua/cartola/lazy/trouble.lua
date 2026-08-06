@@ -1,8 +1,9 @@
-local open_menu = require("core.trouble").open_menu
+local open_menu = require("internal.trouble").open_menu
 
 return {
     "folke/trouble.nvim",
-    tag = "v3.7.1",
+    pin = true,
+    commit = "bd67efe408d4816e25e8491cc5ad4088e708a69a",
     cmd = "Trouble",
     lazy = true,
     keys = {
@@ -55,12 +56,12 @@ return {
 
         vim.api.nvim_create_autocmd("BufRead", {
             callback = function(args)
-                if vim.bo[args.buf].buftype == "quickfix" then
-                    vim.schedule(function()
-                        vim.cmd([[cclose]])
-                        open_menu("quickfix")
-                    end)
-                end
+                if vim.bo[args.buf].buftype ~= "quickfix" then return end
+
+                vim.schedule(function()
+                    vim.cmd([[cclose]])
+                    open_menu("quickfix")
+                end)
             end,
         })
     end,

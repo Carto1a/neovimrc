@@ -1,12 +1,12 @@
 return {
     "tamago324/lir.nvim",
     dependencies = {
-        'nvim-lua/plenary.nvim',
+        { "nvim-lua/plenary.nvim", commit = "74b06c6" },
         "nvim-tree/nvim-web-devicons"
     },
 
     pin = true,
-    commit = "7a9d45d",
+    commit = "f1291b8",
 
     opts = function()
         local actions = require('lir.actions')
@@ -34,7 +34,7 @@ return {
             ['D']     = actions.delete,
 
             ['J']     = function()
-                mark_actions.toggle_mark()
+                mark_actions.toggle_mark("n")
                 vim.api.nvim_feedkeys('j', 'n', false)
             end,
             ['C']     = clipboard_actions.copy,

@@ -13,7 +13,7 @@ end, {
     nargs = '?',
     complete = function(_, _, _)
         local lazy_path = vim.fn.stdpath('config') .. '/lua/cartola/lazy'
-        local dirs = vim.fn.globpath(lazy_path, '*', 0, 1)
+        local dirs = vim.fn.globpath(lazy_path, '*', false, true)
         local result = {}
         for _, dir in ipairs(dirs) do
             if vim.fn.isdirectory(dir) then

@@ -1,8 +1,9 @@
-local config = require("core.custom.project_config")
+local config = require("internal.project_config")
 
-local format_after_save = nil
-if config.get("format_after_save") or false then
-    format_after_save = {
+local format_after_save_config = nil
+local format_after_save = config.get("format_after_save")
+if format_after_save then
+    format_after_save_config = {
         timeout_ms = 1500,
         lsp_format = "fallback",
         async = true,
@@ -14,8 +15,9 @@ return {
     event = { "BufWritePre" },
     cmd = "ConformInfo",
     lazy = true,
+    commit = "619363c",
     opts = {
-        format_after_save = format_after_save,
+        format_after_save = format_after_save_config,
         formatters_by_ft = {
             lua = { "stylua" },
             -- Conform will run multiple formatters sequentially

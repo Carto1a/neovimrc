@@ -1,5 +1,5 @@
 local util = require("cartola.lsp")
-local roslyn = require("core.roslyn")
+local roslyn = require("internal.roslyn")
 local server_name = "roslyn_ls"
 
 local settings = util.get_servers_settings(server_name)
@@ -31,7 +31,7 @@ configuration.root_dir = function(bufnr, on_dir)
 end
 
 configuration.on_attach = function()
-    require("core.roslyn.user_commands").create_roslyn_commands()
+    require("internal.roslyn.user_commands").create_roslyn_commands()
 end
 
 configuration.on_init = function(client)
@@ -69,9 +69,9 @@ end
 configuration.on_exit = function()
     vim.g.roslyn_nvim_selected_solution = nil
     vim.schedule(function()
-        require("core.roslyn.emitter").emit("stopped")
+        require("internal.roslyn.emitter").emit("stopped")
         vim.notify("Roslyn server stopped", vim.log.levels.INFO, { title = "roslyn.nvim" })
-        vim.api.nvim_del_user_command(require("core.roslyn.user_commands").cmd_name)
+        vim.api.nvim_del_user_command(require("internal.roslyn.user_commands").cmd_name)
     end)
 end
 

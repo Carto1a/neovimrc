@@ -1,7 +1,8 @@
-local open_menu = require("core.trouble").open_menu
+local open_menu = require("internal.trouble").open_menu
 
 return {
     "folke/todo-comments.nvim",
+    enabled = false,
     dependencies = {
         "nvim-lua/plenary.nvim",
         "folke/trouble.nvim"
